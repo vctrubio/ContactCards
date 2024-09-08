@@ -8,6 +8,7 @@ import django
 django.setup()
 
 from organisations.models import Organisation, OrganisationsList
+from wallet.models import Wallet
 from django.contrib.auth.models import User
 from dotenv import load_dotenv
 
@@ -21,6 +22,9 @@ ll = OrganisationsList.objects.all()
 users = User.objects.all()
 usernames = [user.username for user in users]
 admin = User.objects.get(username='admin')
+wallets = Wallet.objects.all()
+
+
 
 # new_organisation = Organisation(
 #     name="New Organisation",

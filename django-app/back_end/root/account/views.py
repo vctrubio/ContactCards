@@ -1,28 +1,19 @@
-from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.urls import reverse
-
-from rest_framework.response import Response
-from rest_framework.decorators import api_view
-from rest_framework_simplejwt.tokens import RefreshToken
-from rest_framework.views import APIView
-
 from organisations.models import Organisation, OrganisationsList
-
-
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
 )
-
+from wallet.models import Wallet
 
 """ ON THE BACK END FIRST
-/ if user logged in, return welcome username, else return need to login with login url [X]
-/login POST request to login
-/logout POST request to logout [X]
-/register POST request to register
-
 
 -- Only sending minimal: Error: Network response was not ok
    Needs to send user not correct of password not correct...
@@ -30,7 +21,7 @@ from rest_framework_simplejwt.views import (
 
 
 def homepage(request):
-    print("User status request user:", request.user)
+    print("User status request user1:", request.user)
     if request.user.is_authenticated:
         return HttpResponse(f"Hello {request.user.username}")
     else:
@@ -38,7 +29,7 @@ def homepage(request):
 
 
 def user_status(request):
-    print("User status request user:", request.user)
+    print("User status request user2:", request.user)
 
     if request.user.is_authenticated:
         return JsonResponse(
@@ -61,53 +52,75 @@ def tmp_serialize_user_data(user):
         }
         for org in user_organisations
     ]
-    lists_data = [
-        {
-            "name": lst.name,
-            "is_public": lst.is_public,
-            "organisations": [org.name for org in lst.organisations.all()],
-        }
-        for lst in OrganisationsList.objects.filter(owner=user)
-    ]
+    # lists_data = [
+    #     {
+    #         "name": lst.name,
+    #         "is_public": lst.is_public,
+    #         "organisations": [org.name for org in lst.organisations.all()],
+    #     }
+    #     for lst in OrganisationsList.objects.filter(owner=user)
+    # ]
+    
+    try:
+        wallet = Wallet.objects.get(user=user)
+    except Wallet.DoesNotExist:
+        wallet = None
 
-    return organisations_data, lists_data
+    return organisations_data, wallet
 
 
 def get_user_by_id(request, user_username):
-    print(f'''I ceeeee{user_username=}''')
-    
     try:
         user = User.objects.get(username=user_username)
     except User.DoesNotExist:
         return JsonResponse({"message": "User not found"}, status=404)
 
-    organisations_data, lists_data = tmp_serialize_user_data(user)
+    organisations_data, wallet = tmp_serialize_user_data(user)
     return JsonResponse(
         {
             "id": user.id,
             "username": user.username,
             "organisations": organisations_data,
-            "lists": lists_data,
+            "wallet": wallet,
         }
     )
 
 
 def get_user(request):
-    print("User get request user:", request.user)
+    try:
+        print("User get request user:", request.user)
 
-    if request.user.is_authenticated:
-        organisations_data, lists_data = tmp_serialize_user_data(request.user)
+        if request.user.is_authenticated:
+            organisations_data, lists_data = tmp_serialize_user_data(request.user)
 
+            return JsonResponse(
+                {
+                    "id": request.user.id,
+                    "username": request.user.username,
+                    "organisations": organisations_data,
+                    "lists": lists_data,
+                }
+            )
+        else:
+            print(
+                f"User is not authenticated. User: {request.user}, Authenticated: {request.user.is_authenticated}"
+            )
+            print(f"Session Key: {request.session.session_key}")
+            print(f"Session Data: {dict(request.session.items())}")
+            print(f"User ID: {request.user.id if request.user else 'No user'}")
+            print(f"User is Anonymous: {request.user.is_anonymous}")
+            return JsonResponse(
+                {
+                    "message": "User not found",
+                    "Authenticated": request.user.is_authenticated,
+                },
+                status=404,
+            )
+    except Exception as e:
+        print(f"An error occurred: {e}")
         return JsonResponse(
-            {
-                "id": request.user.id,
-                "username": request.user.username,
-                "organisations": organisations_data,
-                "lists": lists_data,
-            }
+            {"message": "An error occurred", "error": str(e)}, status=500
         )
-    else:
-        return JsonResponse({"message": "User not found"}, status=404)
 
 
 class Test(APIView):

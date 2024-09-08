@@ -23,4 +23,4 @@ class OrganisationsList(models.Model):
     is_public = models.BooleanField(default=True)
     
     def __str__(self):
-        return f'Name: {self.name}, Owner: {self.owner}, Organisations: {self.organisations}, is_public: {self.is_public}'
+        return f'Organisation: {self.name}, Owner: {self.owner}, Organisations: {self.organisations}, is_public: {self.is_public}'
