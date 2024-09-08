@@ -52,10 +52,10 @@ export const checkLoginStatus = async ({ setUsername, setIsLoggedIn }) => {
         const data = await response.json();
         if (data.status) {
             setIsLoggedIn(true);
-            setUsername(data.username || 'AnonymousUser_LocalHost'); // Assuming the API returns a 'username' field
         } else {
             setIsLoggedIn(false);
         }
+        return data;
 
     } catch (error) {
         console.error('Error:', error);

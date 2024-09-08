@@ -166,17 +166,24 @@ export const NavBar = () => {
     const router = useRouter();
 
     useEffect(() => {
-        getUser().then((data) => {
-            setUser(data.username);
-        }).catch((error) => {
-            console.error('Error fetching user:', error);
-        });
+        const fetchUser = async () => {
+            try {
+                const data = await getUser();
+                if (data)
+                    setUser(data.username);
+                // console.log('User:', data);
+            } catch (error) {
+                console.error('Errorito fetching user:', error);
+            }
+        };
+
+        fetchUser();
     }, []);
 
 
     return (
         <>
-            <div className="flex flex-row items-center justify-between p-4 bg-gray-100 dark:bg-neutral-800 min-h-[100px]">
+            <div className="flex flex-row items-center justify-between p-4 bg-gray-100 dark:bg-neutral-800 min-h-[10    0px]">
                 <h2 className="opacity-50 border p-2 rounded-2xl hover:bg-blue-200 cursor-pointer"
                     onClick={() => router.push('/home')}
                 >
@@ -187,3 +194,12 @@ export const NavBar = () => {
         </>
     );
 }
+
+
+/*
+ISSUES FOUND:
+- navbar is making request on everypage load -> it is in the main layout...
+- if user is not logged in, making irrelevant requests
+
+
+*/
