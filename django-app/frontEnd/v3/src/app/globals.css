@@ -25,3 +25,26 @@ body {
     text-wrap: balance;
   }
 }
+
+
+.root-container{
+  display: flex;
+  flex-direction: column;
+  
+  >* {
+    border: 1px solid white;
+    /* padding: 2em; */
+  }
+  
+}
+
+.home-container {
+  height: 100vh;
+  scroll-snap-type: y mandatory;
+  overflow-y: scroll;
+
+  >* {
+    border: 1px solid transparent;
+    scroll-snap-align: start;
+  }
+}
