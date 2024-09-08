@@ -1,0 +1,30 @@
+.user-banner {
+    --color: #8f8f8f;
+    height: 400px;
+    width: 100%;
+    background: var(--color);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    .user-profile-pic {
+        border: 1px solid white;
+        border-radius: 50%;
+        width: 250px;
+        height: 250px;
+        margin-bottom: 20px; 
+
+        /*for future -> placing inside the circle*/
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .user-name{
+        font-size: 1.2rem;
+        font-weight: bold;
+        letter-spacing: 0.1rem;
+    }
+}

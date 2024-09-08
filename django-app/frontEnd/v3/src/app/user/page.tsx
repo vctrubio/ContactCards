@@ -5,30 +5,35 @@ import { getUser } from '@/lib/apiUser';
 
 const UserBanner: React.FC<{ username: string }> = ({ username }) => {
     return (
-        <div className="user-banner border">
-            <div className="user-profile-pic">
-                <div className="user-name">{username && username}</div>
-            </div>
+        <div className="user-banner">
+            <div className="user-profile-pic"></div>
+            <div className="user-name">{username && username}</div>
         </div>
     );
 };
 
 
 const UserProfilePage = () => {
-    const [user, setUser] = useState<any>(null);
+    const [user, setUser] = useState<User | null>(null);
 
     useEffect(() => {
         const fetchUser = async () => {
             try {
                 const data = await getUser();
-                if (data)
+                if (data) {
                     setUser(data);
+                } else {
+                    console.error('No user data returned');
+                }
             } catch (error) {
-                console.error('Errorito fetching user:', error);
+                console.error('Error fetching user:', error);
             }
         };
-
         fetchUser();
+        /* 
+        Failed to load resource: the server responded with a status of 500 (Internal Server Error)
+        but still loading...
+         */
     }, []);
 
     window.user = user
@@ -38,7 +43,8 @@ const UserProfilePage = () => {
     }
 
     return (<div className="p-2">
-        hello dear {user.username}
+        <UserBanner username={user.username} />
+        <div>bottom</div>
     </div>);
 }
 

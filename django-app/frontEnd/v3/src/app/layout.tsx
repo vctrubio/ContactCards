@@ -3,7 +3,8 @@ import localFont from "next/font/local";
 import { cookies, headers } from 'next/headers';
 import {NavBar} from "@/components/navbar";
 
-import "./globals.css";
+import "../css/globals.css";
+import "../css/banners.css";
 
 export const metadata: Metadata = {
   title: "Contact Card",
