@@ -12,6 +12,24 @@ const UserBanner: React.FC<{ username: string }> = ({ username }) => {
     );
 };
 
+const UserComponnts: React.FC<{ user: User }> = ({ user }) => {
+    return (
+        <div className="user-box">
+            <div className="">
+                <h1>Wallet [{}]</h1>
+                <div>abc</div>
+                <div>abc</div>
+            </div>
+            <div className="">
+                <h1>Organistaions [{}] Employee [{}]</h1>
+                <div>abc</div>
+                <div>abc</div>
+            </div>
+        </div>
+    )
+}
+
+
 
 const UserProfilePage = () => {
     const [user, setUser] = useState<User | null>(null);
@@ -36,7 +54,6 @@ const UserProfilePage = () => {
          */
     }, []);
 
-    window.user = user
 
     if (!user) {
         return <div className="p-2">REDIR: Sorry, you need to log in</div>;
@@ -44,7 +61,7 @@ const UserProfilePage = () => {
 
     return (<div className="p-2">
         <UserBanner username={user.username} />
-        <div>bottom</div>
+        <UserComponnts user={user} />
     </div>);
 }
 

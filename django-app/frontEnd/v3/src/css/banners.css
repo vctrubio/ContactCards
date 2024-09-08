@@ -28,3 +28,21 @@
         letter-spacing: 0.1rem;
     }
 }
+
+
+.user-box{
+    display: flex;
+    gap: 25px;
+    >*{
+        flex-grow: 1;
+        padding: 1em;
+        border: 1px solid rgb(255, 255, 255);
+    }
+
+    h1{
+        font-size: 1.5rem;
+        font-weight: bold;
+        letter-spacing: 0.1rem;
+        text-decoration: underline;
+    }
+}

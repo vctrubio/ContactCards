@@ -118,9 +118,9 @@ const NavBarRight = ({ user, router }) => {
 
 const UserDropDown = ({ title }) => {
     const menuList = [
-        { label: 'LoginPage', href: '/login' },
-        { label: 'ProfilePage', href: '/user' },
+        { label: 'ProfilePage', href: '/account' },
         { label: 'OrganisationPage', href: '/organistation' },
+        { label: 'LoginPage', href: '/login' },
     ];
 
     return (
