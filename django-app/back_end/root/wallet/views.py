@@ -1,10 +1,10 @@
 ##rest_framework is best
 from rest_framework.response import Response 
 from rest_framework.decorators import api_view
+from rest_framework import status
 
 from .models import Wallet
 from .serializer import WalletSerializer
-from rest_framework import status
 
 @api_view(['GET', 'POST', 'DELETE'])
 def wallet_list(request):

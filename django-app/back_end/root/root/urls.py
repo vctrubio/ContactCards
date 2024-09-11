@@ -18,9 +18,6 @@ from django.contrib import admin
 from django.urls import path, include
 from . import views
 
-# def hello_world(request):
-#     return HttpResponse("Hello, World!")
-
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index, name='index'),
@@ -29,6 +26,5 @@ urlpatterns = [
     path('login/', views.login_view, name='login'),
     path('account/', include('account.urls'), name='account'),
     path('wallets/', include ('wallet.urls'), name='wallet'),
-
-    # path('/', hello_world, name='hello_world')
+    path('cards/', include ('card.urls'), name='card'),
 ]
