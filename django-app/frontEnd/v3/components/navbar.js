@@ -171,7 +171,7 @@ export const NavBar = () => {
                 const data = await getUser();
                 if (data)
                     setUser(data.username);
-                // console.log('User:', data);
+                console.log('User:', data);
             } catch (error) {
                 console.error('Errorito fetching user:', error);
             }

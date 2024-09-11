@@ -1,5 +1,5 @@
 'use client'
-import '../src/app/globals.css'
+import '../src/css/globals.css'
 import { useRouter } from 'next/navigation'
 
 export const PageSignUp = () => {

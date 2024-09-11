@@ -64,19 +64,17 @@ export const checkLoginStatus = async ({ setUsername, setIsLoggedIn }) => {
 };
 
 export const getUser = async () => {
+    console.log('hello')
     try {
         const url = `${process.env.NEXT_PUBLIC_BACK_END_URL_AUTH}user/`;
-        // console.log('url: ', url)
         
+        console.log("🚀 ~ getUser ~ url:", url)
         const response = await fetch(url,
             {
                 method: 'GET',
                 credentials: 'include',
             }
         );
-        // console.log('Response status:', response.status);
-        // console.log('Response body:', await response.text()); // Log the response body as text
-
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
@@ -86,6 +84,7 @@ export const getUser = async () => {
     } catch (error) {
         console.error('Error:', error);
     }
+    console.log('bye')
 }
 
 export const getUserById = async (userId) => {

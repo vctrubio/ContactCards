@@ -62,7 +62,14 @@ def tmp_serialize_user_data(user):
     # ]
     
     try:
-        wallet = Wallet.objects.get(user=user)
+        wallet_data = Wallet.objects.get(user=user)
+        wallet = {
+            "id": wallet_data.id,
+            "organisations": [
+                {"id": org.id, "name": org.name} for org in wallet_data.organisations.all()
+            ],
+        } ## Must be Jsonized
+        
     except Wallet.DoesNotExist:
         wallet = None
 

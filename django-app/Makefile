@@ -13,3 +13,7 @@ frontv2:
 	@echo "Starting fron end"
 	@cd frontEnd/v2 && npm run dev
 
+frontv3:
+	@echo "Starting fron end"
+	@cd frontEnd/v3 && npm run dev
+

@@ -2,9 +2,9 @@ import { cookies } from 'next/headers';
 import { getUser } from '@/lib/apiUser';
 
 const Test = async () => {
+    // const sessionCookie = cookies().get('sessionid');
+    // console.log("🚀 ~ sessionCookie:", sessionCookie)
     const user = await getUser();
-    const sessionCookie = cookies().get('sessionid');
-    console.log("🚀 ~ sessionCookie:", sessionCookie)
     return (<>
         {user ? (
             <div>
