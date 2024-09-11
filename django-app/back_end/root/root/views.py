@@ -2,12 +2,13 @@ from django.shortcuts import render, HttpResponse
 import os
 import re
 
+
 def generate_directory_tree(path):
     html = "<ul>"
     try:
         items = os.listdir(path)
         for item in items:
-            if item.startswith('_'):
+            if item.startswith("_"):
                 continue
             item_path = os.path.join(path, item)
             if os.path.isdir(item_path):
@@ -19,19 +20,27 @@ def generate_directory_tree(path):
     html += "</ul>"
     return html
 
+
 def extract_urls(file_path):
     urls = []
-    with open(file_path, 'r') as file:
+    with open(file_path, "r") as file:
         content = file.read()
         pattern = re.compile(r"path\('([^']*)'")
         matches = pattern.findall(content)
-        urls.extend([f"<a href='{match}'>{match}</a>" for match in matches if match.strip() and 'blog' not in match])  # Create HTML links
+        urls.extend(
+            [
+                f"<a href='{match}'>{match}</a>"
+                for match in matches
+                if match.strip() and "blog" not in match
+            ]
+        )  # Create HTML links
     return urls
 
+
 def index(request):
-    base_path = '.'  # You can change this to any directory you want to start from
-    urls_path = os.path.join(base_path, 'root/urls.py')
-    
+    base_path = "."  # You can change this to any directory you want to start from
+    urls_path = os.path.join(base_path, "root/urls.py")
+
     html = """
     <html>
     <head>
@@ -63,14 +72,15 @@ def index(request):
     </body>
     </html>
     """
-    
+
     directory_tree = generate_directory_tree(base_path)
     urls = extract_urls(urls_path)
     urls_list = "".join(f"<li>{url}</li>" for url in urls)
-    
+
     html = html.format(directory_tree=directory_tree, urls=urls_list)
-    
+
     return HttpResponse(html)
 
+
 def login_view(request):
-    return render(request, 'base.html')
+    return render(request, "base.html")
