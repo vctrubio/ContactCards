@@ -118,8 +118,8 @@ const NavBarRight = ({ user, router }) => {
 
 const UserDropDown = ({ title }) => {
     const menuList = [
-        { label: 'ProfilePage', href: '/account' },
-        { label: 'OrganisationPage', href: '/organistation' },
+        { label: 'ProfilePage', href: '/user' },
+        { label: 'OrganisationPage', href: '/organistations' },
         { label: 'LoginPage', href: '/login' },
     ];
 

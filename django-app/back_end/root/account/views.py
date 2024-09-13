@@ -2,7 +2,8 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.urls import reverse
-from organisations.models import Organisation, OrganisationsList
+from organisations.models import Organisation
+# from card.models import Card
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -65,9 +66,9 @@ def tmp_serialize_user_data(user):
         wallet_data = Wallet.objects.get(user=user)
         wallet = {
             "id": wallet_data.id,
-            "organisations": [
-                {"id": org.id, "name": org.name} for org in wallet_data.organisations.all()
-            ],
+            # "cards": [
+            #     {"id": org.id, "name": org.name} for org in wallet_data.cards.all()
+            # ],
         } ## Must be Jsonized
         
     except Wallet.DoesNotExist:

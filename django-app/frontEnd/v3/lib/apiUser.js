@@ -51,6 +51,7 @@ export const checkLoginStatus = async ({ setUsername, setIsLoggedIn }) => {
 
         const data = await response.json();
         if (data.status) {
+            setUsername(data.username);
             setIsLoggedIn(true);
         } else {
             setIsLoggedIn(false);
@@ -64,7 +65,6 @@ export const checkLoginStatus = async ({ setUsername, setIsLoggedIn }) => {
 };
 
 export const getUser = async () => {
-    console.log('hello')
     try {
         const url = `${process.env.NEXT_PUBLIC_BACK_END_URL_AUTH}user/`;
         
@@ -78,13 +78,11 @@ export const getUser = async () => {
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
-        // console.log('it was ALLLL OK')
         const data = await response.json();
         return data;
     } catch (error) {
         console.error('Error:', error);
     }
-    console.log('bye')
 }
 
 export const getUserById = async (userId) => {
