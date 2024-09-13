@@ -1,6 +1,5 @@
 from rest_framework import serializers
 from .models import Card, CardShare
-from organisations.models import Organisation
 
 class CardSerializer(serializers.ModelSerializer):
     class Meta:

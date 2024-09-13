@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Organisation, OrganisationsList
+from .models import Organisation
 from card.serializer import NestedCardSerializer
 
 class OrganisationSerializer(serializers.ModelSerializer):

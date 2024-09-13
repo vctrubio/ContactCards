@@ -20,7 +20,7 @@ in the backend
 - Organisation serializer to import CardSerialzer
 - create a variable cards in Orgnaisation Serliazer(many=True, read_only=True, source='card_set')
   - this creates default reverse relationship name that Django automatically creates for a ForeignKey relationship.
-
+- view it in the api GET 
 
 
 ## what is the manage file?
