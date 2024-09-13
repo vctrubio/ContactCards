@@ -9,6 +9,7 @@ django.setup()
 
 from organisations.models import Organisation, OrganisationsList
 from wallet.models import Wallet
+from card.models import Card
 from django.contrib.auth.models import User
 from dotenv import load_dotenv
 
@@ -23,6 +24,7 @@ users = User.objects.all()
 usernames = [user.username for user in users]
 admin = User.objects.get(username='admin')
 wallets = Wallet.objects.all()
+cards = Card.objects.all()
 
 
 

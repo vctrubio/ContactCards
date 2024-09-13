@@ -14,7 +14,7 @@ class Organisation(models.Model):
     def __str__(self):
         return f'Name: {self.name}, Owner: {self.owner}, About: {self.about}, www: {self.www}, Location: {self.location}'
     
-    ##TO ADD employees
+    ##TO ADD employees # ADD PK id
 
 class OrganisationsList(models.Model):
     name = models.CharField(max_length=50)

@@ -8,7 +8,8 @@ from .serializer import CardSerializer, CardShareSerializer
 
 @api_view(['GET', 'POST', 'DELETE'])
 def card_list(request):
-    # return Response({'message': 'Card list'}, status=status.HTTP_200_OK)
+    print("🐍 File: card/views.py | Line: 11 | undefined ~ request",request)
+    
     if request.method == 'GET':
         data = Card.objects.all()
         serializer = CardSerializer(data, many=True)

@@ -1,18 +1,14 @@
 from rest_framework import serializers
 from .models import Organisation, OrganisationsList
-#How to change incoming data 
-
+from card.serializer import NestedCardSerializer
 
 class OrganisationSerializer(serializers.ModelSerializer):
+    cards = NestedCardSerializer(many=True, read_only=True, source='card_set')
     class Meta:
         model = Organisation
         fields = '__all__'
 
-class OrganisationListSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = OrganisationsList
-        fields = '__all__'
-        
+
 ''' 
 # Example usage of the serializer
 # Create an instance of the serializer with data from a request

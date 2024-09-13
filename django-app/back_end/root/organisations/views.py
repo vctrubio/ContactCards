@@ -3,7 +3,7 @@ from rest_framework.response import Response
 
 from rest_framework import status
 from .models import Organisation as M, OrganisationsList 
-from .serializer import OrganisationSerializer, OrganisationListSerializer
+from .serializer import OrganisationSerializer 
 
 
 
@@ -56,18 +56,3 @@ def organisation_detail(request, pk):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
     
-@api_view(['GET', 'POST', 'DELETE']) 
-def OrgyList(request):
-    if request.method == 'GET':
-        data = OrganisationsList.objects.all()
-        serializer = OrganisationListSerializer(data, many=True)
-        return Response(serializer.data)
-    elif request.method == 'POST':
-        user = request.user
-        form_ptr = request.data.copy()
-        form_ptr['owner'] = user.id
-        serializer = OrganisationListSerializer(data=form_ptr)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

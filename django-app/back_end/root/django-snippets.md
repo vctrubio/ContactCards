@@ -10,9 +10,16 @@ python manage.py runserver
 - model must have url
 
 in the backend
+
 - model declaration
-- serializer 
+- serializer
 - django rest framework
+
+## setting up organisation.cards
+
+- Organisation serializer to import CardSerialzer
+- create a variable cards in Orgnaisation Serliazer(many=True, read_only=True, source='card_set')
+  - this creates default reverse relationship name that Django automatically creates for a ForeignKey relationship.
 
 
 
