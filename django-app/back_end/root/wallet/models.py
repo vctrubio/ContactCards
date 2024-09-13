@@ -13,3 +13,4 @@ class Wallet(models.Model):
         ]
         cards_str = ", ".join(cards_list)
         return f"Wallet: {self.id}: {self.user.username}: Cards: {cards_str}"
+

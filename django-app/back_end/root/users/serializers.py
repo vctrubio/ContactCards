@@ -1,10 +1,10 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
 from organisations.serializer import Organisation, OrganisationSerializer
-from card.serializer import CardSerializer
-
+from wallet.serializer import NestedUserWalletSerializer
 class UserSerializer(serializers.ModelSerializer):
-    organisations = serializers.SerializerMethodField()    
+    organisations = serializers.SerializerMethodField()
+    wallet = NestedUserWalletSerializer()    
     class Meta:
         model = User
         fields = '__all__'

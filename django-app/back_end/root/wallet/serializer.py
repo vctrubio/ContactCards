@@ -6,5 +6,11 @@ class WalletSerializer(serializers.ModelSerializer):
         model = Wallet
         fields = '__all__'
         
-        
-    
+       
+class NestedUserWalletSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Wallet
+        exclude = ['user']  # Exclude 'user' field
+ 
+
+# check user does not have wallet... | if user has wallet, append list of cards to wallet, duplicates = continue
