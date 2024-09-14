@@ -15,12 +15,3 @@ class Organisation(models.Model):
         return f'Name: {self.name}, Owner: {self.owner}, About: {self.about}, www: {self.www}, Location: {self.location}'
     
     ##TO ADD employees # ADD PK id
-
-class OrganisationsList(models.Model):
-    name = models.CharField(max_length=50)
-    owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='organisations_links')
-    organisations = models.ManyToManyField(Organisation, related_name='organisations_links', blank=True)
-    is_public = models.BooleanField(default=True)
-    
-    def __str__(self):
-        return f'Organisation: {self.name}, Owner: {self.owner}, Organisations: {self.organisations}, is_public: {self.is_public}'

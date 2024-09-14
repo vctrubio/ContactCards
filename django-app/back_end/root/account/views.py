@@ -1,8 +1,10 @@
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
+from rest_framework import status
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.urls import reverse
 from organisations.models import Organisation
+from users.serializers import UserSerializer
 
 # from card.models import Card
 from rest_framework.decorators import api_view
@@ -41,7 +43,6 @@ def user_status(request):
 
 @api_view(['GET'])
 def auth(request):
-    print('test879')
     print("User status request usercheck1234:", request.user)
     
     if request.user.is_authenticated:
@@ -84,62 +85,23 @@ def get_user_by_id(request, user_username):
     except User.DoesNotExist:
         return JsonResponse({"message": "User not found"}, status=404)
 
-    organisations_data, wallet = tmp_serialize_user_data(user)
-    return JsonResponse(
-        {
-            "id": user.id,
-            "username": user.username,
-            "organisations": organisations_data,
-            "wallet": wallet,
-        }
-    )
+    return Response(UserSerializer(user).data, status=status.HTTP_200_OK)
 
 
+@api_view(['GET'])
 def get_user(request):
     try:
-        # print("User get request user01:", request.user)
-        # this is depreciated becasue now user returns everything on the backend.... 
-
         if request.user.is_authenticated:
-            organisations_data, lists_data = tmp_serialize_user_data(request.user)
-
-            return JsonResponse(
-                {
-                    "id": request.user.id,
-                    "username": request.user.username,
-                    "organisations": organisations_data,
-                }
-            )
-            return 
+            user = User.objects.get(username=request.user.username)
+            return Response(UserSerializer(user).data, status=status.HTTP_200_OK)
 
         else:
-            print(
-                f"User is not authenticated. User: {request.user}, Authenticated: {request.user.is_authenticated}"
-            )
-            print(f"Session Key: {request.session.session_key}")
-            print(f"Session Data: {dict(request.session.items())}")
-            print(f"User ID: {request.user.id if request.user else 'No user'}")
-            print(f"User is Anonymous: {request.user.is_anonymous}")
-            return JsonResponse(
-                {
-                    "message": "User not found",
-                    "Authenticated": request.user.is_authenticated,
-                },
-                status=404,
-            )
+            return Response({"message": "User not found"}, status=404)
     except Exception as e:
-        print(f"An error occurred: {e}")
+        print(f"An error occurred in get_user: {e}")
         return JsonResponse(
-            {"message": "An error occurred", "error": str(e)}, status=500
+            {"message": "An error occurred in exception", "error": str(e)}, status=500
         )
-
-
-class Test(APIView):
-    def get(self, request):
-        content = {"message": "Hello, World!"}
-        ptr_response = Response(content, status=200)
-        ptr_response.set_cookie("test_cookie", "test_cookie_value")
-        return ptr_response
 
 
 @api_view(["GET", "POST"])

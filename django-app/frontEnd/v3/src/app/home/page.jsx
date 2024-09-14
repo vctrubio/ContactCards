@@ -19,7 +19,9 @@ const HomePage = async () => {
                     <ul>
                         {users.map((user) => (
                             <Link href={`/user/${user.username}`} className='hover:text-blue-200'>
-                                <li key={user.id}>{user.username}</li>
+                                <li key={user.id}>
+                                    {user.id} | {user.username}
+                                </li>
                             </Link>
                         ))}
                     </ul>
@@ -31,7 +33,7 @@ const HomePage = async () => {
                         {orgys.map((org) => (
                             <li key={org.id}>
                                 <Link href={`/organisations/${org.id}`} className='hover:text-blue-200'>
-                                    <div>{org.name}</div>
+                                    <div>{org.id} | {org.name}</div>
                                 </Link>
                             </li>))}
                     </ul>
@@ -43,7 +45,7 @@ const HomePage = async () => {
                         {cards.map((card) => (
                             <li key={card.id}>
                                 <Link href={`/cards/${card.id}`} className='hover:text-blue-200'>
-                                    <div>{card.id}</div>
+                                    <div>{card.id} | {card.employee} | {card.organisation.name}</div>
                                 </Link>
                             </li>
                         ))}

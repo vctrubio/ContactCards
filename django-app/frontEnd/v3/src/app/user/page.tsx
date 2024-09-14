@@ -1,7 +1,7 @@
 'use client'
 import React, { useState, useEffect } from 'react';
 import { Organisation, User } from '@/types/backend';
-import { getUserV2 } from '@/lib/apiUser';
+import { getUser, getUserV2 } from '@/lib/apiUser';
 import { Card, Wallet } from '@/types/backend';
 import { CardOrganisation, CardOrganisationEmployee, CardWallet } from '@/components/cards'
 
@@ -16,22 +16,25 @@ const UserBanner: React.FC<{ username: string }> = ({ username }) => {
 
 const UserComponnts: React.FC<{ user: User }> = ({ user }) => {
     console.log("🚀 ~ user:", user)
-    const wallet: Wallet = user.wallet;
-    const organisations: Organisation[] = user.organisations;
-    const employee_organisations = user.employee_organisations
-    window.o = employee_organisations
+    window.o = user;
+
+    const wallet: Wallet | null = user.wallet ?? null;
+    const organisations: Organisation[] = user.organisations ?? [];
+    const employee_organisations: Organisation[] = user.employee_organisations ?? [];
 
     return (
         <div className="user-box">
             <div className="">
-                <h1>Wallet [{wallet.cards.length}]</h1>
+                <h1>Wallet [{wallet ? wallet.cards.length : 0}]</h1>
                 {wallet ? (
                     <div>
-                        <div> {wallet.cards.map((card: Card) => (
-                            <div key={card.id}>
-                                <CardWallet card={card} />
-                            </div>
-                        ))}</div>
+                        <div>
+                            {wallet.cards.map((card: Card) => (
+                                <div key={card.id}>
+                                    <CardWallet card={card} />
+                                </div>
+                            ))}
+                        </div>
                     </div>
                 ) : (
                     <></>
@@ -72,42 +75,40 @@ const UserComponnts: React.FC<{ user: User }> = ({ user }) => {
                 </div>
             </div>
         </div>
-    )
+    );
 }
 
+    const UserProfilePage = () => {
+        const [user, setUser] = useState<User | null>(null);
 
-
-const UserProfilePage = () => {
-    const [user, setUser] = useState<User | null>(null);
-
-    useEffect(() => {
-        const fetchUser = async () => {
-            try {
-                const data = await getUserV2();
-                if (data) {
-                    setUser(data);
-                } else {
-                    console.error('No user data returned');
+        useEffect(() => {
+            const fetchUser = async () => {
+                try {
+                    const data = await getUserV2();
+                    if (data) {
+                        setUser(data);
+                    } else {
+                        console.error('No user data returned');
+                    }
+                } catch (error) {
+                    console.error('Error fetching user:', error);
                 }
-            } catch (error) {
-                console.error('Error fetching user:', error);
-            }
-        };
-        fetchUser();
-    }, []);
+            };
+            fetchUser();
+        }, []);
 
 
-    if (!user) {
-        return <div className="p-2">REDIR: Sorry, you need to log in</div>;
+        if (!user) {
+            return <div className="p-2">REDIR: Sorry, you need to log in</div>;
+        }
+
+        return (<div className="p-2">
+            <UserBanner username={user.username} />
+            <UserComponnts user={user} />
+        </div>);
     }
 
-    return (<div className="p-2">
-        <UserBanner username={user.username} />
-        <UserComponnts user={user} />
-    </div>);
-}
-
-export default UserProfilePage;
+    export default UserProfilePage;
 
 
 

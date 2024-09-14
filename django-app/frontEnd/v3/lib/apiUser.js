@@ -117,14 +117,14 @@ export const getUser = async () => {
 
 export const getUserV2 = async () => {
     try {
-        const url = `${process.env.NEXT_PUBLIC_GET_USER_API}auth/`;
+        const url = `${process.env.NEXT_PUBLIC_BACK_END_URL_AUTH}user/`;
         const response = await fetch(url,
             {
                 method: 'GET',
                 credentials: 'include',
             }
         );
-
+        
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
@@ -138,7 +138,8 @@ export const getUserV2 = async () => {
 
 export const getUserByIdV2 = async (userName) => {
     try{
-        const url = `${process.env.NEXT_PUBLIC_GET_USER_API}${userName}/`;
+        // NEXT_PUBLIC_GET_USER_API=http://localhost:8000/users/
+        const url = `${process.env.NEXT_PUBLIC_GET_USER_API}auth/`;
         console.log("🚀 ~ getUserByIdV2 ~ url:", url);
         const response = await fetch(url,
             {
@@ -148,6 +149,7 @@ export const getUserByIdV2 = async (userName) => {
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
+        console.log("🚀 ~ getUserByIdV2 ~ response:", response)
         const data = await response.json();
         return data;
     }
