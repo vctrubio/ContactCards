@@ -37,7 +37,7 @@ const UserLogForm = ({ setIsLoggedIn, setUsername }) => {
             event.target.form.reset();
             setIsLoggedIn(true);
             setUsername(username);
-            routerRedirect();
+            // routerRedirect();
         } catch (error) {
             console.log('error:', error);
             toast.error(`Error: ${error.message}`);
@@ -94,7 +94,7 @@ const UserHelloForm = ({ username, setUsername, setIsLoggedIn }) => {
         {
             header: "Continue",
             className: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded",
-            onClick: () => router.push('/')
+            onClick: () => router.push('/home')
         },
         {
             header: "Sign Out",

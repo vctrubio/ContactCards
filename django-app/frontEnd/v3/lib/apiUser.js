@@ -50,12 +50,13 @@ export const checkLoginStatus = async ({ setUsername, setIsLoggedIn }) => {
         }
 
         const data = await response.json();
-        if (data) {
+        if (data.username) {
             setUsername(data.username);
             setIsLoggedIn(true);
         } else {
-                setIsLoggedIn(false);
+            setIsLoggedIn(false);
         }
+      
         return data;
 
     } catch (error) {

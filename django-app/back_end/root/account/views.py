@@ -39,7 +39,7 @@ def user_status(request):
             }
         )
     else:
-        return JsonResponse({"statusa": False})
+        return JsonResponse({"statusCheck": False})
 
 
 @api_view(["GET"])
