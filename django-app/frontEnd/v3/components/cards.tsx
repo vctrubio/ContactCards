@@ -5,7 +5,7 @@ import { Card, Organisation } from '@/types/backend';
 export const CardWallet = ({ card }: { card: Card }) => {
     return (
         <div className="card wallet">
-            {card.organisation.name} |> {card.employee}
+            {card.id}. {card.organisation.name} |> {card.employee}
         </div>
     );
 }
