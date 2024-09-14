@@ -9,7 +9,7 @@ class Wallet(models.Model):
 
     def __str__(self):
         cards_list = [
-            f"{card.name}" for card in self.cards.all()
+            f"{card.id}" for card in self.cards.all()
         ]
         cards_str = ", ".join(cards_list)
         return f"Wallet: {self.id}: {self.user.username}: Cards: {cards_str}"

@@ -1,7 +1,8 @@
 'use client'
 import React, { useState, useEffect } from 'react';
 import { User } from '@/types/backend';
-import { getUser, getUserV2 } from '@/lib/apiUser';
+import { getUserV2 } from '@/lib/apiUser';
+import { Card, Wallet } from '@/types/backend';
 
 const UserBanner: React.FC<{ username: string }> = ({ username }) => {
     return (
@@ -13,15 +14,29 @@ const UserBanner: React.FC<{ username: string }> = ({ username }) => {
 };
 
 const UserComponnts: React.FC<{ user: User }> = ({ user }) => {
+    console.log("🚀 ~ user:", user)
+    const wallet: Wallet = user.wallet;
+    window.w = wallet
+    
     return (
         <div className="user-box">
             <div className="">
-                <h1>Wallet [{}]</h1>
-                <div>abc</div>
-                <div>abc</div>
+                <h1>Wallet [{wallet.cards.length}]</h1>
+                {wallet ? (
+                    <div>
+                        <div> {wallet.cards.map((card: Card) => (
+                            <div key={card.id}>
+                                {/* Card ID: {card.id} | Organisation: {card.organisation.id} | Employee: {card.employee} */}
+                                Card ID: {card.id}
+                            </div>
+                        ))}</div>
+                    </div>
+                ) : (
+                    <></>
+                )}
             </div>
             <div className="">
-                <h1>Organistaions [{}] Employee [{}]</h1>
+                <h1>Organistaions [{ }] Employee [{ }]</h1>
                 <div>abc</div>
                 <div>abc</div>
             </div>
@@ -38,7 +53,6 @@ const UserProfilePage = () => {
         const fetchUser = async () => {
             try {
                 const data = await getUserV2();
-                console.log('data21:', data);
                 if (data) {
                     setUser(data);
                 } else {

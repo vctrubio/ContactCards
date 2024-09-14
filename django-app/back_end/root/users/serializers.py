@@ -6,7 +6,7 @@ from wallet.serializer import NestedUserWalletSerializer
 
 class UserSerializer(serializers.ModelSerializer):
     organisations = serializers.SerializerMethodField()
-    wallet = NestedUserWalletSerializer()
+    wallet = serializers.SerializerMethodField()
 
     class Meta:
         model = User
@@ -23,3 +23,6 @@ class UserSerializer(serializers.ModelSerializer):
     def get_organisations(self, obj):
         organisations = Organisation.objects.filter(owner=obj.id)
         return OrganisationSerializer(organisations, many=True).data
+
+    def get_wallet(self, obj):
+        return NestedUserWalletSerializer(obj.wallet).data

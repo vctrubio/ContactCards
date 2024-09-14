@@ -9,4 +9,17 @@ export interface Organisation {
 export interface User {
     username: string;
     organisations: Organisation[];
+    wallet: Wallet;
 }
+
+export interface Card {
+    id: number;
+    organisation: Organisation;
+    employee: User;
+}
+
+export interface Wallet {
+    id: number;
+    cards: Card[];
+}
+

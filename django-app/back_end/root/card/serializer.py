@@ -19,7 +19,11 @@ class CardSerializer(serializers.ModelSerializer):
         
         return data
 
+
+
+
 class NestedCardSerializer(serializers.ModelSerializer):
+    # organisation = OrganisationSerializer(read_only=True)
     class Meta:
         model = Card
         exclude = ['organisation']  # Exclude 'organisation' field
