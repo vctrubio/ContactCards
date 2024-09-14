@@ -4,7 +4,7 @@ export const getAllCards = async () => {
         const response = await fetch(url,
             {
                 method: 'GET',
-                credentials: 'include',
+                // credentials: 'include',
             }
         );
 
@@ -25,7 +25,7 @@ export const getCardById = async (cardId) => {
         const response = await fetch(url,
             {
                 method: 'GET',
-                credentials: 'include',
+                // credentials: 'include',
             }
         );
 
