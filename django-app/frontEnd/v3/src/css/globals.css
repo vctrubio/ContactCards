@@ -48,3 +48,15 @@ body {
     scroll-snap-align: start;
   }
 }
+
+.organisations-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.organisations-section,
+.employee-organisations-section {
+  flex: 1;
+  margin: 0 10px;
+}

@@ -4,14 +4,24 @@ from card.serializer import CardSerializer
 
 class OrganisationSerializer(serializers.ModelSerializer):
     cards = CardSerializer(many=True, read_only=True, source='card_set')
+    employees = serializers.SerializerMethodField()
     class Meta:
         model = Organisation
         fields = '__all__'
+        
+    def get_employees(self, obj):
+        employees = set()
+        for card in obj.card_set.all():
+            employees.add(card.employee.username)
+        return list(employees)
 
 class NestedOrganisationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Organisation
-        fields = '__all__'
+        fields = [
+            'id',
+            'name'
+        ]
 
 
 ''' 

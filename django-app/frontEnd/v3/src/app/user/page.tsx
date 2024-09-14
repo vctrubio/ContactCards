@@ -1,8 +1,9 @@
 'use client'
 import React, { useState, useEffect } from 'react';
-import { User } from '@/types/backend';
+import { Organisation, User } from '@/types/backend';
 import { getUserV2 } from '@/lib/apiUser';
 import { Card, Wallet } from '@/types/backend';
+import { CardOrganisation, CardOrganisationEmployee, CardWallet } from '@/components/cards'
 
 const UserBanner: React.FC<{ username: string }> = ({ username }) => {
     return (
@@ -16,8 +17,10 @@ const UserBanner: React.FC<{ username: string }> = ({ username }) => {
 const UserComponnts: React.FC<{ user: User }> = ({ user }) => {
     console.log("🚀 ~ user:", user)
     const wallet: Wallet = user.wallet;
-    window.w = wallet
-    
+    const organisations: Organisation[] = user.organisations;
+    const employee_organisations = user.employee_organisations
+    window.o = employee_organisations
+
     return (
         <div className="user-box">
             <div className="">
@@ -26,8 +29,7 @@ const UserComponnts: React.FC<{ user: User }> = ({ user }) => {
                     <div>
                         <div> {wallet.cards.map((card: Card) => (
                             <div key={card.id}>
-                                {/* Card ID: {card.id} | Organisation: {card.organisation.id} | Employee: {card.employee} */}
-                                Card ID: {card.id}
+                                <CardWallet card={card} />
                             </div>
                         ))}</div>
                     </div>
@@ -35,10 +37,39 @@ const UserComponnts: React.FC<{ user: User }> = ({ user }) => {
                     <></>
                 )}
             </div>
-            <div className="">
-                <h1>Organistaions [{ }] Employee [{ }]</h1>
-                <div>abc</div>
-                <div>abc</div>
+            <div className="organisations-container">
+                <div className="organisations-section">
+                    {organisations.length > 0 ? (
+                        <div>
+                            <h1>Organisations [{organisations.length}]</h1>
+                            <div>
+                                {organisations.map((organisation: Organisation) => (
+                                    <div key={organisation.id}>
+                                        <CardOrganisation organisation={organisation} />
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    ) : (
+                        <p>No organisations available.</p>
+                    )}
+                </div>
+                <div className="employee-organisations-section">
+                    {employee_organisations.length > 0 ? (
+                        <div>
+                            <h1>Employee Organisations [{employee_organisations.length}]</h1>
+                            <div>
+                                {employee_organisations.map((organisation: Organisation) => (
+                                    <div key={organisation.id}>
+                                        <CardOrganisation organisation={organisation} />
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    ) : (
+                        <p>No employee organisations available.</p>
+                    )}
+                </div>
             </div>
         </div>
     )

@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from .models import Wallet
-from card.serializer import NestedCardSerializer
+from card.serializer import CardSerializer
 
 class WalletSerializer(serializers.ModelSerializer):
     class Meta:
@@ -9,7 +9,7 @@ class WalletSerializer(serializers.ModelSerializer):
         
        
 class NestedUserWalletSerializer(serializers.ModelSerializer):
-    cards = NestedCardSerializer(many=True, read_only=True)
+    cards = CardSerializer(many=True, read_only=True)
 
     class Meta:
         model = Wallet

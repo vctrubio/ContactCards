@@ -10,12 +10,13 @@ export interface User {
     username: string;
     organisations: Organisation[];
     wallet: Wallet;
+    employee_organisations: Organisation[];
 }
 
 export interface Card {
     id: number;
     organisation: Organisation;
-    employee: User;
+    employee: string,
 }
 
 export interface Wallet {
