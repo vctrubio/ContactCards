@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.urls import reverse
 from organisations.models import Organisation
+
 # from card.models import Card
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -22,7 +23,7 @@ from wallet.models import Wallet
 
 
 def homepage(request):
-    print("User status request user1:", request.user)
+    print("User status request user10:", request.user)
     if request.user.is_authenticated:
         return HttpResponse(f"Hello {request.user.username}")
     else:
@@ -30,14 +31,23 @@ def homepage(request):
 
 
 def user_status(request):
-    print("User status request user2:", request.user)
-
+    print("User status request user22222222:", request.user)
     if request.user.is_authenticated:
         return JsonResponse(
-            {"status": True, "username": request.user.username, "id": request.user.id}
+            {"statusCheck": True, "username": request.user.username, "id": request.user.id}
         )
     else:
-        return JsonResponse({"status": False})
+        return JsonResponse({"statusa": False})
+
+@api_view(['GET'])
+def auth(request):
+    print('test879')
+    print("User status request usercheck1234:", request.user)
+    
+    if request.user.is_authenticated:
+        return Response(True)
+    else:
+        return Response(False)
 
 
 def tmp_serialize_user_data(user):
@@ -53,15 +63,6 @@ def tmp_serialize_user_data(user):
         }
         for org in user_organisations
     ]
-    # lists_data = [
-    #     {
-    #         "name": lst.name,
-    #         "is_public": lst.is_public,
-    #         "organisations": [org.name for org in lst.organisations.all()],
-    #     }
-    #     for lst in OrganisationsList.objects.filter(owner=user)
-    # ]
-    
     try:
         wallet_data = Wallet.objects.get(user=user)
         wallet = {
@@ -96,7 +97,8 @@ def get_user_by_id(request, user_username):
 
 def get_user(request):
     try:
-        print("User get request user01:", request.user)
+        # print("User get request user01:", request.user)
+        # this is depreciated becasue now user returns everything on the backend.... 
 
         if request.user.is_authenticated:
             organisations_data, lists_data = tmp_serialize_user_data(request.user)

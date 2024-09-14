@@ -51,10 +51,13 @@ export const checkLoginStatus = async ({ setUsername, setIsLoggedIn }) => {
 
         const data = await response.json();
         if (data.status) {
-            setUsername(data.username);
-            setIsLoggedIn(true);
+            if (setUsername)
+                setUsername(data.username);
+            if (setIsLoggedIn)
+                setIsLoggedIn(true);
         } else {
-            setIsLoggedIn(false);
+            if (setIsLoggedIn)
+                setIsLoggedIn(false);
         }
         return data;
 
@@ -64,10 +67,37 @@ export const checkLoginStatus = async ({ setUsername, setIsLoggedIn }) => {
     }
 };
 
+//must be called from a client component....
+export const validateAuth = async () => {
+    try {
+        const param = 'auth/'
+        const destination = `${process.env.NEXT_PUBLIC_BACK_END_URL_AUTH}${param}`;
+        console.log("🚀 ~ simpleCheckLoginStatus ~ destination:", destination)
+        const response = await fetch(destination, {
+            method: 'GET',
+            credentials: 'include',
+            headers: {
+                'Cache-Control': 'no-cache',
+                'Pragma': 'no-cache',
+            },
+        });
+        
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+
+        const data = await response.json();
+        return data;
+
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}
+
 export const getUser = async () => {
     try {
         const url = `${process.env.NEXT_PUBLIC_BACK_END_URL_AUTH}user/`;
-        
+
         // console.log("🚀 ~ getUser ~ url:", url)
         const response = await fetch(url,
             {
@@ -106,6 +136,25 @@ export const getUserV2 = async () => {
     }
 }
 
+export const getUserByIdV2 = async (userName) => {
+    try{
+        const url = `${process.env.NEXT_PUBLIC_GET_USER_API}${userName}/`;
+        console.log("🚀 ~ getUserByIdV2 ~ url:", url);
+        const response = await fetch(url,
+            {
+                method: 'GET',
+            }
+        );
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        const data = await response.json();
+        return data;
+    }
+    catch{
+        console.log('error in getUserByIdV2')
+    }
+}
 export const getUserById = async (userId) => {
     console.log("🚀 ~ getUserById ~ userId009:", userId)
     try {
@@ -123,6 +172,27 @@ export const getUserById = async (userId) => {
 
         const data = await response.json();
         // console.log('data: is good ', data)
+        return data;
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}
+
+export const getAllUsers = async () => {
+    try {
+        const url = `${process.env.NEXT_PUBLIC_GET_USER_API}`;
+        const response = await fetch(url,
+            {
+                method: 'GET',
+                // credentials: 'include',
+            }
+        );
+
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+
+        const data = await response.json();
         return data;
     } catch (error) {
         console.error('Error:', error);

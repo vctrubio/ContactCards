@@ -1,12 +1,13 @@
-import { getUserById } from "@/lib/apiUser";
+import { getUserByIdV2 } from "@/lib/apiUser";
 
 const UserUsernamePage = async ({ params }: { params: { username: string } }) => {
-    const user = await getUserById(params.username);
+    const user = await getUserByIdV2(params.username);
+    // const user = null;
 
-    if (!user) return <>No User found.</>
+    if (!user) return <>No User found...</>
     return (
         <>
-            <div>id is {user.id}</div>
+            <pre>{JSON.stringify(user, null, 2)}</pre>
         </>
     );
 }

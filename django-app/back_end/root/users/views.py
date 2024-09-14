@@ -16,3 +16,21 @@ def user_auth(request):
         get_user = User.objects.get(username=request.user)
         return Response(UserSerializer(get_user).data, status=status.HTTP_200_OK)
     return Response({"status": False}, status=status.HTTP_401_UNAUTHORIZED)
+
+@api_view(['GET'])
+def user_detail(request, user_id):
+    try:
+        data = User.objects.get(id=user_id)
+    except User.DoesNotExist:
+        return Response({"status": False}, status=status.HTTP_404_NOT_FOUND)
+    serializer = UserSerializer(data)
+    return Response(serializer.data)
+
+@api_view(['GET'])
+def user_by_username(request, username):
+    try:
+        user = User.objects.get(username=username)
+    except User.DoesNotExist:
+        return Response({"status": False}, status=status.HTTP_404_NOT_FOUND)
+    serializer = UserSerializer(user)
+    return Response(serializer.data)

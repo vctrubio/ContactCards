@@ -1,5 +1,5 @@
 import { getCardById } from "@/lib/apiCard";
-
+import { CardWallet } from "@/components/cards";
 
 const CardPage = async ({ params }: { params: { id: number } }) => {
     console.log("🚀 ~ CardPage ~ params:", params)
@@ -8,9 +8,7 @@ const CardPage = async ({ params }: { params: { id: number } }) => {
 
     if (!card) return <>No Card found.</>
     return (
-        <>
-            <div>id is {card.id}</div>
-        </>
+       <CardWallet card={card} />
     );
 }
 
