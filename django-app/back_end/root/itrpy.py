@@ -1,5 +1,6 @@
 import os
 import requests
+import random
 
 # Set up Django environment
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'root.settings')
@@ -65,7 +66,7 @@ def api_call_stores():
         # print(f'''{name=}, {address=}''')
         Organisation(
             name=name,
-            owner=admin,
+            owner=random.choice(users) if users else admin,
             about="Google Parse API... No hay mucho que decir.",
             www=f'www.{name}.com',
             location=address

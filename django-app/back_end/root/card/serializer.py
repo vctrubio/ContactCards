@@ -14,6 +14,11 @@ class CardSerializer(serializers.ModelSerializer):
         return NestedOrganisationSerializer(obj.organisation).data if obj.organisation else None
 
 
+class PostCardSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Card
+        fields = '__all__'
+        
     def validate(self, data):
         organisation = data.get('organisation')
         employee = data.get('employee')
@@ -23,8 +28,6 @@ class CardSerializer(serializers.ModelSerializer):
                 raise serializers.ValidationError("This organisation already has a card for this employee.")
         
         return data
-
-
 
 
 class NestedCardSerializer(serializers.ModelSerializer):

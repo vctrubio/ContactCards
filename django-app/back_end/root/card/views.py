@@ -3,19 +3,17 @@ from rest_framework.decorators import api_view
 from rest_framework import status
 
 from .models import Card, CardShare
-from .serializer import CardSerializer, CardShareSerializer
+from .serializer import CardSerializer, CardShareSerializer, PostCardSerializer
 
 
 @api_view(['GET', 'POST', 'DELETE'])
 def card_list(request):
-    print("🐍 File: card/views.py | Line: 11 | undefined ~ request",request)
-    
     if request.method == 'GET':
         data = Card.objects.all()
         serializer = CardSerializer(data, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
     elif request.method == 'POST':
-        serializer = CardSerializer(data=request.data)
+        serializer = PostCardSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
