@@ -15,6 +15,10 @@ from corsheaders.defaults import default_headers
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# MEDIA
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
@@ -24,8 +28,7 @@ SECRET_KEY = "django-insecure-_#%8u-n0b(r91(#$ko_1pic5l84*5q51n)84bvqye0e#)sm@$i
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
 
 ALLOWED_HOSTS = []
 
