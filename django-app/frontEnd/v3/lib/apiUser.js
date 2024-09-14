@@ -107,6 +107,7 @@ export const getUserV2 = async () => {
 }
 
 export const getUserById = async (userId) => {
+    console.log("🚀 ~ getUserById ~ userId009:", userId)
     try {
         const url = `${process.env.NEXT_PUBLIC_BACK_END_URL_AUTH}user/${userId}/`;
         const response = await fetch(url,
@@ -121,8 +122,7 @@ export const getUserById = async (userId) => {
         }
 
         const data = await response.json();
-        console.log('data: is good ', data)
-
+        // console.log('data: is good ', data)
         return data;
     } catch (error) {
         console.error('Error:', error);
