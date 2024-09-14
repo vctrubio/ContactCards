@@ -7,7 +7,7 @@ https://docs.djangoproject.com/en/5.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
-
+import os
 from pathlib import Path
 from datetime import timedelta
 from corsheaders.defaults import default_headers
@@ -24,6 +24,8 @@ SECRET_KEY = "django-insecure-_#%8u-n0b(r91(#$ko_1pic5l84*5q51n)84bvqye0e#)sm@$i
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 ALLOWED_HOSTS = []
 
