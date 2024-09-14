@@ -134,8 +134,7 @@ export const getUserV2 = async () => {
 export const getUserByIdV2 = async (userName) => {
     try {
         // NEXT_PUBLIC_GET_USER_API=http://localhost:8000/users/
-        const url = `${process.env.NEXT_PUBLIC_GET_USER_API}auth/`;
-        console.log("🚀 ~ getUserByIdV2 ~ url:", url);
+        const url = `${process.env.NEXT_PUBLIC_GET_USER_API}${userName}/`;
         const response = await fetch(url,
             {
                 method: 'GET',
