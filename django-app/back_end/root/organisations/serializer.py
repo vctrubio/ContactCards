@@ -1,9 +1,14 @@
 from rest_framework import serializers
 from .models import Organisation
-from card.serializer import NestedCardSerializer
+from card.serializer import CardSerializer
 
 class OrganisationSerializer(serializers.ModelSerializer):
-    cards = NestedCardSerializer(many=True, read_only=True, source='card_set')
+    cards = CardSerializer(many=True, read_only=True, source='card_set')
+    class Meta:
+        model = Organisation
+        fields = '__all__'
+
+class NestedOrganisationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Organisation
         fields = '__all__'
