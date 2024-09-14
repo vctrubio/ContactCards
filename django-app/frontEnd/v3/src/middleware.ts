@@ -5,7 +5,6 @@ export function middleware(request: NextRequest) {
     // console.log("🚀 ~ middleware ~ sessionId:", sessionId)
 
     const response = NextResponse.next();
-    // console.log("🚀 ~ middleware ~ response:", response)
     
 }
 

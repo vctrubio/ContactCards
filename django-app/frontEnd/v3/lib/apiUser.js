@@ -133,7 +133,6 @@ export const getUserV2 = async () => {
 
 export const getUserByIdV2 = async (userName) => {
     try {
-        // NEXT_PUBLIC_GET_USER_API=http://localhost:8000/users/
         const url = `${process.env.NEXT_PUBLIC_GET_USER_API}${userName}/`;
         const response = await fetch(url,
             {
@@ -143,7 +142,6 @@ export const getUserByIdV2 = async (userName) => {
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
-        console.log("🚀 ~ getUserByIdV2 ~ response:", response)
         const data = await response.json();
         return data;
     }
@@ -167,7 +165,6 @@ export const getUserById = async (userId) => {
         }
 
         const data = await response.json();
-        // console.log('data: is good ', data)
         return data;
     } catch (error) {
         console.error('Error:', error);

@@ -3,19 +3,15 @@ from django.contrib.auth.models import User
 from rest_framework import status
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.urls import reverse
-from organisations.models import Organisation
 from users.serializers import UserSerializer
 
-# from card.models import Card
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from rest_framework.views import APIView
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
 )
-from wallet.models import Wallet
 
 """ ON THE BACK END FIRST
 
@@ -36,47 +32,24 @@ def user_status(request):
     print("User status request user22222222:", request.user)
     if request.user.is_authenticated:
         return JsonResponse(
-            {"statusCheck": True, "username": request.user.username, "id": request.user.id}
+            {
+                "statusCheck": True,
+                "username": request.user.username,
+                "id": request.user.id,
+            }
         )
     else:
         return JsonResponse({"statusa": False})
 
-@api_view(['GET'])
+
+@api_view(["GET"])
 def auth(request):
     print("User status request usercheck1234:", request.user)
-    
+
     if request.user.is_authenticated:
         return Response(True)
     else:
         return Response(False)
-
-
-def tmp_serialize_user_data(user):
-    user_organisations = Organisation.objects.filter(owner=user)
-
-    organisations_data = [
-        {
-            "id": org.id,
-            "name": org.name,
-            "about": org.about,
-            "www": org.www,
-            "location": org.location,
-        }
-        for org in user_organisations
-    ]
-    try:
-        wallet_data = Wallet.objects.get(user=user)
-        wallet = {
-            "id": wallet_data.id,
-            # "cards": [
-            #     {"id": org.id, "name": org.name} for org in wallet_data.cards.all()
-            # ],
-        } ## Must be Jsonized
-        
-    except Wallet.DoesNotExist:
-        wallet = None
-
-    return organisations_data, wallet
 
 
 def get_user_by_id(request, user_username):
@@ -88,7 +61,7 @@ def get_user_by_id(request, user_username):
     return Response(UserSerializer(user).data, status=status.HTTP_200_OK)
 
 
-@api_view(['GET'])
+@api_view(["GET"])
 def get_user(request):
     try:
         if request.user.is_authenticated:
@@ -160,8 +133,6 @@ def register(request):
             user = User.objects.create_user(username=username, password=password)
             user.save()
             login(request, user)
-
-            # return Response({'message': 'User created!'}, status=201)
             refresh = RefreshToken.for_user(user)
             return Response(
                 {
