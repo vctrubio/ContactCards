@@ -1,7 +1,7 @@
 'use client'
 import React, { useState, useEffect } from 'react';
 import { User } from '@/types/backend';
-import { getUser } from '@/lib/apiUser';
+import { getUser, getUserV2 } from '@/lib/apiUser';
 
 const UserBanner: React.FC<{ username: string }> = ({ username }) => {
     return (
@@ -37,7 +37,8 @@ const UserProfilePage = () => {
     useEffect(() => {
         const fetchUser = async () => {
             try {
-                const data = await getUser();
+                const data = await getUserV2();
+                console.log('data21:', data);
                 if (data) {
                     setUser(data);
                 } else {
@@ -48,10 +49,6 @@ const UserProfilePage = () => {
             }
         };
         fetchUser();
-        /* 
-        Failed to load resource: the server responded with a status of 500 (Internal Server Error)
-        but still loading...
-         */
     }, []);
 
 

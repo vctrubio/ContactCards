@@ -96,7 +96,7 @@ def get_user_by_id(request, user_username):
 
 def get_user(request):
     try:
-        print("User get request user:", request.user)
+        print("User get request user01:", request.user)
 
         if request.user.is_authenticated:
             organisations_data, lists_data = tmp_serialize_user_data(request.user)
@@ -106,9 +106,10 @@ def get_user(request):
                     "id": request.user.id,
                     "username": request.user.username,
                     "organisations": organisations_data,
-                    "lists": lists_data,
                 }
             )
+            return 
+
         else:
             print(
                 f"User is not authenticated. User: {request.user}, Authenticated: {request.user.is_authenticated}"

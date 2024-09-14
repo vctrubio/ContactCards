@@ -68,7 +68,7 @@ export const getUser = async () => {
     try {
         const url = `${process.env.NEXT_PUBLIC_BACK_END_URL_AUTH}user/`;
         
-        console.log("🚀 ~ getUser ~ url:", url)
+        // console.log("🚀 ~ getUser ~ url:", url)
         const response = await fetch(url,
             {
                 method: 'GET',
@@ -78,6 +78,27 @@ export const getUser = async () => {
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}
+
+export const getUserV2 = async () => {
+    try {
+        const url = `${process.env.NEXT_PUBLIC_GET_USER_API}auth/`;
+        const response = await fetch(url,
+            {
+                method: 'GET',
+                credentials: 'include',
+            }
+        );
+
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+
         const data = await response.json();
         return data;
     } catch (error) {
