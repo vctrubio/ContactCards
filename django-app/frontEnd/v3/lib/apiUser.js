@@ -50,13 +50,10 @@ export const checkLoginStatus = async ({ setUsername, setIsLoggedIn }) => {
         }
 
         const data = await response.json();
-        if (data.status) {
-            if (setUsername)
-                setUsername(data.username);
-            if (setIsLoggedIn)
-                setIsLoggedIn(true);
+        if (data) {
+            setUsername(data.username);
+            setIsLoggedIn(true);
         } else {
-            if (setIsLoggedIn)
                 setIsLoggedIn(false);
         }
         return data;
@@ -81,7 +78,7 @@ export const validateAuth = async () => {
                 'Pragma': 'no-cache',
             },
         });
-        
+
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
@@ -97,8 +94,6 @@ export const validateAuth = async () => {
 export const getUser = async () => {
     try {
         const url = `${process.env.NEXT_PUBLIC_BACK_END_URL_AUTH}user/`;
-
-        // console.log("🚀 ~ getUser ~ url:", url)
         const response = await fetch(url,
             {
                 method: 'GET',
@@ -124,7 +119,7 @@ export const getUserV2 = async () => {
                 credentials: 'include',
             }
         );
-        
+
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
@@ -137,7 +132,7 @@ export const getUserV2 = async () => {
 }
 
 export const getUserByIdV2 = async (userName) => {
-    try{
+    try {
         // NEXT_PUBLIC_GET_USER_API=http://localhost:8000/users/
         const url = `${process.env.NEXT_PUBLIC_GET_USER_API}auth/`;
         console.log("🚀 ~ getUserByIdV2 ~ url:", url);
@@ -153,7 +148,7 @@ export const getUserByIdV2 = async (userName) => {
         const data = await response.json();
         return data;
     }
-    catch{
+    catch {
         console.log('error in getUserByIdV2')
     }
 }
