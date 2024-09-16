@@ -3,17 +3,17 @@ import {PageSignUp} from "@/components/buttons"
 
 const links = [
   {
-    href: "#",
+    href: "",
     title: "Digitise",
     description: "Bring your employees and clients online",
   },
   {
-    href: "#",
+    href: "",
     title: "Share",
     description: "NFC swap your favorite business",
   },
   {
-    href: "#",
+    href: "",
     title: "Own",
     description: "Keep hold of your clients",
   },
@@ -51,7 +51,7 @@ const PageLanding = () => {
   return (
     <main className="flex min-h-screen flex-col items-center justify-center gap-40 p-14">
       <Image
-        src="/icon.webp"
+        src="/logo-one.webp"
         alt="Token"
         width={200}
         height={200}
