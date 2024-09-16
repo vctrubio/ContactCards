@@ -6,9 +6,9 @@ import Link from 'next/link';
 const CardsPage = async () => {
     const cards: Card[] = await getAllCards();
 
-    return (<>
-        <h1>Cards</h1>
-        <div className="flex flex-wrap justify-start">
+    return (
+        <>
+            <div className="flex flex-wrap justify-start">
                 {cards.map(card => (
                     <Link href={`cards/${card.id}`}>
                         <div key={card.id}>
@@ -17,8 +17,9 @@ const CardsPage = async () => {
                         </div>
                     </Link>
                 ))}
-        </div>
-    </>);
+            </div>
+        </>
+    );
 }
 
 export default CardsPage;

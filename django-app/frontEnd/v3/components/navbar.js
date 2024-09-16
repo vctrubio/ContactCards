@@ -2,7 +2,7 @@
 import { useEffect, useState, useRef } from 'react';
 import { getUser } from "@/lib/apiUser";
 import { handleLogOut } from '@/lib/apiUser';
-import { useRouter } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
 
 import Link from 'next/link';
@@ -143,8 +143,6 @@ const UserDropDown = ({ title }) => {
     );
 }
 
-
-
 const NavBarUserFace = ({ user }) => {
 
     return (
@@ -164,6 +162,9 @@ const NavBarUserFace = ({ user }) => {
 export const NavBar = () => {
     const [user, setUser] = useState(null);
     const router = useRouter();
+    const i = usePathname().split('/')[1]
+    console.log("🚀 ~ NavBar ~ i:", i)
+    
 
     useEffect(() => {
         const fetchUser = async () => {
@@ -189,6 +190,11 @@ export const NavBar = () => {
                 >
                     Token
                 </h2>
+                <Link href={`/${i}`}>
+                <div className='text-2xl opacity-80 hover:opacity-100 tracking-wide align-center cursor-pointer'>
+                    {i}
+                </div>
+                </Link>
                 <NavBarUserFace user={user} />
             </div>
         </>

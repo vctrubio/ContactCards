@@ -4,6 +4,21 @@ import { getAllUsers } from "@/lib/apiUser";
 import { getAllCards } from "@/lib/apiCard";
 import Link from "next/link";
 
+export const ListOrganisations = ({orgys}) => {
+    return (
+        <ul>
+            {orgys.map((org) => (
+                <Link href={`/organisations/${org.id}`} key={org.id} className='hover:text-blue-200'>
+                    <li>
+                        <div>{org.id} | {org.name}</div>
+                    </li>
+                </Link>
+            ))}
+        </ul>
+    )
+}
+
+
 const HomePage = async () => {
     const users = await getAllUsers();
     const cards = await getAllCards();
@@ -11,8 +26,6 @@ const HomePage = async () => {
 
     return (
         <div className="p-8">
-            Home Page - users - organisations - cards - wallets
-            if not logged in, redirect to /
             <div className="flex gap-10 mt-10">
                 <div>
                     <h1 className="underline mb-2">Users</h1>
@@ -29,15 +42,7 @@ const HomePage = async () => {
 
                 <div>
                     <h1 className="underline mb-2">Organisations</h1>
-                    <ul>
-                        {orgys.map((org) => (
-                            <Link href={`/organisations/${org.id}`} key={org.id} className='hover:text-blue-200'>
-                                <li>
-                                    <div>{org.id} | {org.name}</div>
-                                </li>
-                            </Link>
-                        ))}
-                    </ul>
+                    <ListOrganisations orgys={orgys} />
                 </div>
 
                 <div>
