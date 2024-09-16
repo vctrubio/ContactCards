@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Card, CardShare
+from .models import Card
 
 class CardSerializer(serializers.ModelSerializer):
     organisation = serializers.SerializerMethodField()
@@ -35,20 +35,4 @@ class NestedCardSerializer(serializers.ModelSerializer):
         model = Card
         exclude = ['organisation']
         
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-class CardShareSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = CardShare
-        fields = '__all__'
+    

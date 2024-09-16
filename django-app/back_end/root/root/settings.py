@@ -47,7 +47,8 @@ INSTALLED_APPS = [
     "users",
     "account",
     "wallet",
-    "card"
+    "card",
+    "cardshare",
 ]
 
 MIDDLEWARE = [

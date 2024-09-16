@@ -27,4 +27,6 @@ urlpatterns = [
     path('account/', include('account.urls'), name='account'),
     path('wallets/', include ('wallet.urls'), name='wallet'),
     path('cards/', include ('card.urls'), name='card'),
+    path('trans/', include ('cardshare.urls'), name='card'),
+
 ]
