@@ -5,7 +5,7 @@ from card.models import Card
 class Wallet(models.Model):
     id = models.AutoField(primary_key=True)  # Explicitly define the id field
     user = models.OneToOneField("auth.User", on_delete=models.CASCADE)
-    cards = models.ManyToManyField(Card, related_name="wallets")
+    cards = models.ManyToManyField(Card, related_name="wallets", null=True, blank=True)
 
     def __str__(self):
         cards_list = [

@@ -31,7 +31,7 @@ const UserComponnts: React.FC<{ user: User }> = ({ user }) => {
                         <div>
                             {wallet.cards.map((card: Card) => (
                                 <div key={card.id}>
-                                    <CardWallet card={card} />
+                                    {card.employee} | {card.organisation.name}
                                 </div>
                             ))}
                         </div>
