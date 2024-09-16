@@ -18,8 +18,8 @@ const HomePage = async () => {
                     <h1 className="underline mb-2">Users</h1>
                     <ul>
                         {users.map((user) => (
-                            <Link href={`/user/${user.username}`} className='hover:text-blue-200'>
-                                <li key={user.id}>
+                            <Link href={`/user/${user.username}`} key={user.id} className='hover:text-blue-200'>
+                                <li>
                                     {user.id} | {user.username}
                                 </li>
                             </Link>
@@ -31,11 +31,12 @@ const HomePage = async () => {
                     <h1 className="underline mb-2">Organisations</h1>
                     <ul>
                         {orgys.map((org) => (
-                            <li key={org.id}>
-                                <Link href={`/organisations/${org.id}`} className='hover:text-blue-200'>
+                            <Link href={`/organisations/${org.id}`} key={org.id} className='hover:text-blue-200'>
+                                <li>
                                     <div>{org.id} | {org.name}</div>
-                                </Link>
-                            </li>))}
+                                </li>
+                            </Link>
+                        ))}
                     </ul>
                 </div>
 
@@ -43,18 +44,17 @@ const HomePage = async () => {
                     <h1 className="underline mb-2">Cards</h1>
                     <ul>
                         {cards.map((card) => (
-                            <li key={card.id}>
-                                <Link href={`/cards/${card.id}`} className='hover:text-blue-200'>
+                            <Link href={`/cards/${card.id}`} key={card.id} className='hover:text-blue-200'>
+                                <li>
                                     <div>{card.id} | {card.employee} | {card.organisation.name}</div>
-                                </Link>
-                            </li>
+                                </li>
+                            </Link>
                         ))}
                     </ul>
                 </div>
 
                 <div>
                     <h1>Cards Shared ...</h1>
-
                 </div>
             </div>
         </div>

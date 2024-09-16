@@ -59,7 +59,7 @@ export const postOrganisation = async (formData) => {
 
 export const fetchOrganisationById = async (id) => {
     try {
-        console.log('fetchOrganisationById id: ', id)
+        // console.log('fetchOrganisationById id: ', id)
         const response = await fetch(`${process.env.NEXT_PUBLIC_BACK_END_URL_ORGS}${id}`, {
             method: "GET",
         });
