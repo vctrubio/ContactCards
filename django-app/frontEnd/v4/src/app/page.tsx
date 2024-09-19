@@ -1,8 +1,10 @@
 'use client'
 import React, {useState, useEffect} from "react";
 import WelcomePage from "@/src/pages/login";
-import { checkLoginStatus, getUserV2, validateAuth } from "@/lib/apiUser";
+import { getUserV2 } from "@/lib/apiUser";
 import {PageLanding, PageWhatWeDo} from "@/src/pages/landing";
+import {SponsorPage} from "@/src/pages/sponsor";
+
 import { User } from "@/types/backend";
 const UserNotLoggedInPage = ({setUser, user}) => {
   return (
@@ -11,6 +13,7 @@ const UserNotLoggedInPage = ({setUser, user}) => {
       <div className="min-h-screen">
         <PageWhatWeDo />
         <WelcomePage setUser={setUser} user={user} />
+        <SponsorPage/>
       </div>
     </div>
   )

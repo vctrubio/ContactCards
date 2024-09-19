@@ -32,10 +32,12 @@ const UserLogForm = ({ setUser }) => {
             }
 
             const data = await response.json();
-            toast.success(`Success: ${data.message}`);
+            toast.success(`Successu: ${data.message}`);
             event.target.form.reset();
             setUser(data.user) 
             router.refresh();
+            //not rekloading
+
         } catch (error) {
             console.log('error:', error);
             toast.error(`Error: ${error.message}`);
@@ -126,7 +128,6 @@ const LoginStatus = ({setUser, user}) => {
 
 const WelcomePage = ({setUser, user}) => {
 
-    const username = 'billy';
     const WelcomeMsg = () => (
             <h2 className="mt-5 opacity-50">
                 Ready to get started?
