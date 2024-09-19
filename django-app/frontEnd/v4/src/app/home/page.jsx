@@ -26,7 +26,6 @@ const HomePage = async () => {
     const cards = await getAllCards();
     const orgys = await fetchAllOrganisation();
     const trans = await fetchAllTransactions();
-    console.log("🚀 ~ HomePage ~ trans:", trans)
 
     return (
         <div className="p-8">

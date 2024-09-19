@@ -146,6 +146,12 @@ const UserDropDown = ({ title }) => {
 const NavBarUserFace = ({ user }) => {
 
     return (
+        <div className='border p-4 '>
+            {user ? user : 'Anonymous'}
+        </div>
+    )
+    
+    return (
         <div className='flex items-center'>
             {user ? (
                 <div className='flex items-center space-x-4'>
@@ -164,7 +170,7 @@ export const NavBar = () => {
     const router = useRouter();
     const i = usePathname().split('/')[1]
     console.log("🚀 ~ NavBar ~ i:", i)
-    
+
 
     useEffect(() => {
         const fetchUser = async () => {
@@ -191,9 +197,9 @@ export const NavBar = () => {
                     Token
                 </h2>
                 <Link href={`/${i}`}>
-                <div className='text-2xl opacity-80 hover:opacity-100 tracking-wide align-center cursor-pointer'>
-                    {i}
-                </div>
+                    <div className='text-2xl opacity-80 hover:opacity-100 tracking-wide align-center cursor-pointer'>
+                        {i}
+                    </div>
                 </Link>
                 <NavBarUserFace user={user} />
             </div>

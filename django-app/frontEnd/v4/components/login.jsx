@@ -153,13 +153,13 @@ const WelcomePage = () => {
     const [username, setUsername] = useState('');
 
     const WelcomeMsg = () => (
-        <div className="text-center text-xl font-bold text-blue-200">
-            Login Page!
-        </div>
+            <h2 className="mt-5 opacity-50">
+                Ready to get started?
+            </h2>
     );
 
     return (
-        <div className='py-10 flex flex-col justify-center items-center gap-5'>
+        <div className='py-10 flex flex-col justify-center items-center gap-5 flex flex-col items-center justify-center p-8 bg-gray-100 dark:bg-neutral-800 w-full' id='signin'>
             <WelcomeMsg />
             <Suspense fallback={<div className="text-center text-lg text-gray-500">Checking login status...</div>}>
                 <LoginStatus setUsername={setUsername} setIsLoggedIn={setIsLoggedIn} isLoggedIn={isLoggedIn} username={username} />
