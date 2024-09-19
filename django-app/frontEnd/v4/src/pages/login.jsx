@@ -4,7 +4,7 @@ import { toast, Toaster } from 'sonner';
 import { checkLoginStatus, handleLogOut } from '@/lib/apiUser';
 import { useRouter } from 'next/navigation';
 
-const UserLogForm = ({ setIsLoggedIn, setUsername }) => {
+const UserLogForm = ({ setUser }) => {
     const router = useRouter();
 
     const handleBtn = async (event, action) => {
@@ -28,14 +28,13 @@ const UserLogForm = ({ setIsLoggedIn, setUsername }) => {
 
             if (!response.ok) {
                 const errorData = await response.json();
-                throw new Error(errorData.message || 'Network response was not ok');
+                throw new Error(errorData || 'Network response was not ok');
             }
 
             const data = await response.json();
             toast.success(`Success: ${data.message}`);
             event.target.form.reset();
-            setIsLoggedIn(true);
-            setUsername(username);
+            setUser(data.user) 
             router.refresh();
         } catch (error) {
             console.log('error:', error);
@@ -86,26 +85,19 @@ const UserLogForm = ({ setIsLoggedIn, setUsername }) => {
     )
 }
 
-const UserHelloForm = ({ username, setUsername, setIsLoggedIn }) => {
-    const router = useRouter();
-
+const UserHelloForm = ({setUser, user}) => {
     const buttonsLoggedInLinks = [
-        {
-            header: "Continue",
-            className: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded",
-            onClick: () => router.push('/home')
-        },
         {
             header: "Sign Out",
             className: "bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded",
-            onClick: () => handleLogOut({ setUsername, setIsLoggedIn })
+            onClick: () => handleLogOut({ setUsername, setIsLoggedIn }) //**setUset to null....
         }
     ];
 
     return (
         <div className='text-white text-center'>
             <div>
-                Hello {username}
+                Hello {user.username}
             </div>
             <div className='flex flex-col gap-2 py-2'>
                 {buttonsLoggedInLinks.map((button, index) => (
@@ -123,31 +115,16 @@ const UserHelloForm = ({ username, setUsername, setIsLoggedIn }) => {
 }
 
 
-const LoginStatus = ({ setUsername, setIsLoggedIn, isLoggedIn, username }) => {
-    const [isLoading, setIsLoading] = useState(true);
-
-    useEffect(() => {
-        const checkStatus = async () => {
-            await checkLoginStatus({ setUsername, setIsLoggedIn });
-            setIsLoading(false);
-        };
-
-        checkStatus();
-    }, []);
-
-    if (isLoading) {
-        return;
-    }
-
-    if (isLoggedIn) {
-        return <UserHelloForm username={username} setIsLoggedIn={setIsLoggedIn} setUsername={setUsername} />;
+const LoginStatus = ({setUser, user}) => {
+    if (user) {
+        return <UserHelloForm user={user} setUser={setUser}/>;
     } else {
-        return <UserLogForm setUsername={setUsername} setIsLoggedIn={setIsLoggedIn} />;
+        return <UserLogForm setUser={setUser} />;
     }
 };
 
 
-const WelcomePage = ({isLoggedIn, setIsLoggedIn, setUsername}) => {
+const WelcomePage = ({setUser, user}) => {
 
     const username = 'billy';
     const WelcomeMsg = () => (
@@ -160,7 +137,7 @@ const WelcomePage = ({isLoggedIn, setIsLoggedIn, setUsername}) => {
         <div className='py-10 flex flex-col justify-center items-center gap-5 flex flex-col items-center justify-center p-8 bg-gray-100 dark:bg-neutral-800 w-full' id='signin'>
             <WelcomeMsg />
             <Suspense fallback={<div className="text-center text-lg text-gray-500">Checking login status...</div>}>
-                <LoginStatus setUsername={setUsername} setIsLoggedIn={setIsLoggedIn} isLoggedIn={isLoggedIn} username={username} />
+                <LoginStatus setUser={setUser} user={user} />
             </Suspense>
             <Toaster position="bottom-left" />
         </div>

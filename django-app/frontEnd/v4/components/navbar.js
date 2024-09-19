@@ -146,11 +146,13 @@ const UserDropDown = ({ title }) => {
 const NavBarUserFace = ({ user }) => {
 
     return (
-        <div className='border p-4 '>
-            {user ? user : 'Anonymous'}
-        </div>
+        <Link href='/'>
+            <div className='border p-4 '>
+                {user ? user : 'Anonymous'}
+            </div>
+        </Link>
     )
-    
+
     return (
         <div className='flex items-center'>
             {user ? (
@@ -169,7 +171,7 @@ export const NavBar = () => {
     const [user, setUser] = useState(null);
     const router = useRouter();
     const i = usePathname().split('/')[1]
-    console.log("🚀 ~ NavBar ~ i:", i)
+    // console.log("🚀 ~ NavBar ~ i:", i)
 
 
     useEffect(() => {
@@ -178,7 +180,7 @@ export const NavBar = () => {
                 const data = await getUser();
                 if (data)
                     setUser(data.username);
-                console.log('UserNavBar:', data);
+                // console.log('UserNavBar:', data);
             } catch (error) {
                 console.error('Errorito fetching user:', error);
             }

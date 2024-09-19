@@ -3,14 +3,14 @@ import React, {useState, useEffect} from "react";
 import WelcomePage from "@/src/pages/login";
 import { checkLoginStatus, getUserV2, validateAuth } from "@/lib/apiUser";
 import {PageLanding, PageWhatWeDo} from "@/src/pages/landing";
-
-const UserNotLoggedInPage = ({isLoggedIn, setUsername, setIsLoggedIn}) => {
+import { User } from "@/types/backend";
+const UserNotLoggedInPage = ({setUser, user}) => {
   return (
     <div className="home-container">
       <PageLanding />
       <div className="min-h-screen">
         <PageWhatWeDo />
-        <WelcomePage setUsername={setUsername} setIsLoggedIn={setIsLoggedIn} isLoggedIn={isLoggedIn}/>
+        <WelcomePage setUser={setUser} user={user} />
       </div>
     </div>
   )
@@ -26,24 +26,21 @@ const UserLoggedInPage = ({username}) => {
 
 
 export default function Home() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [username, setUsername] = useState('');
-  const [user, setUser] = useState(null);
-  console.log("🚀 ~ Home ~ user:", user)
+  const [user, setUser] = useState<User | null>(null);
+  // console.log("🚀 ~ Home ~ user:", user)
 
   useEffect(() => {
     const fetchLoginStatus = async () => {
-      await checkLoginStatus({ setIsLoggedIn, setUsername });
       const userData = await getUserV2();
       setUser(userData);
      
     };
     fetchLoginStatus();
-  }, [username]);
+  }, [user]);
 
-  if (!isLoggedIn) {
-    return <UserNotLoggedInPage setIsLoggedIn={setIsLoggedIn} isLoggedIn={isLoggedIn} setUsername={setUsername}/>;
+  if (!user) {
+    return <UserNotLoggedInPage setUser={setUser} user={user} />;
   }
 
-  return <UserLoggedInPage username={username}/>;
+  return <UserLoggedInPage username={user.username}/>;
 }

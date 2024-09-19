@@ -56,7 +56,7 @@ export const checkLoginStatus = async ({ setUsername, setIsLoggedIn }) => {
         } else {
             setIsLoggedIn(false);
         }
-      
+
         return data;
 
     } catch (error) {
@@ -126,7 +126,11 @@ export const getUserV2 = async () => {
         );
 
         if (!response.ok) {
-            throw new Error('Network response was not ok');
+            if (response.status === 401) {
+                throw new Error('Not logged in yet. Please log in.');
+            } else {
+                throw new Error('Network response was not ok getUserv2');
+            }
         }
 
         const data = await response.json();

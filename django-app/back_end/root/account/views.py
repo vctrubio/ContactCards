@@ -69,7 +69,7 @@ def get_user(request):
             return Response(UserSerializer(user).data, status=status.HTTP_200_OK)
 
         else:
-            return Response({"message": "User not found"}, status=404)
+            return Response({"message": "User not found"}, status=status.HTTP_401_UNAUTHORIZED)
     except Exception as e:
         print(f"An error occurred in get_user: {e}")
         return JsonResponse(
@@ -104,6 +104,7 @@ def login_me(request):
                     "message": "Login successful!",
                     "token": str(refresh.access_token),
                     "refresh": str(refresh),
+                    "user": UserSerializer(user).data,
                 }
             )
 
