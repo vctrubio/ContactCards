@@ -21,6 +21,6 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "lib/apiCard.js", "lib/apiTransaction.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "lib/apiCard.js", "lib/apiTransaction.js", "components/models.tsx"],
   "exclude": ["node_modules"]
 }

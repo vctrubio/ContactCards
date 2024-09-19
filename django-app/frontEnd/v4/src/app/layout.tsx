@@ -6,6 +6,7 @@ import {NavBar} from "@/components/navbar";
 import "../css/globals.css";
 import "../css/banners.css";
 import "../css/cards.css";
+import "../css/models.css";
 
 export const metadata: Metadata = {
   title: "Contact Card",

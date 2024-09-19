@@ -8,7 +8,7 @@ import { SubscribeButton } from "@/components/buttons";
 import { UserHelloForm } from '@/src/pages/login'
 
 import { User } from "@/types/backend";
-
+import { UserModels } from "@/components/models";
 
 const UserNotLoggedInPage = ({ setUser, user }) => {
   return (
@@ -26,16 +26,19 @@ const UserNotLoggedInPage = ({ setUser, user }) => {
 const UserLoggedInPage = ({ user, setUser }) => {
   return (
     <div className="flex flex-col gap-5 p-6">
-      <pre>{JSON.stringify(user, null, 2)}</pre>
       <div style={{ width: '450px' }}>
         {!user.is_staff &&
           <SubscribeButton setUser={setUser} />
         }
         <UserHelloForm user={user} setUser={setUser} />
       </div>
+        <UserModels user={user} />
+      <pre>{JSON.stringify(user, null, 2)}</pre>
     </div>
   )
 }
+
+
 
 
 export default function Home() {
