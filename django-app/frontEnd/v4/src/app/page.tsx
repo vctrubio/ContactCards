@@ -1,25 +1,25 @@
 'use client'
 import React, {useState, useEffect} from "react";
-import WelcomePage from "@/components/login";
-import { checkLoginStatus } from "@/lib/apiUser";
-import {PageLanding, PageWhatWeDo} from "@/src/pages/loggin";
+import WelcomePage from "@/src/pages/login";
+import { checkLoginStatus, getUserV2, validateAuth } from "@/lib/apiUser";
+import {PageLanding, PageWhatWeDo} from "@/src/pages/landing";
 
-const UserNotLoggedInPage = () => {
+const UserNotLoggedInPage = ({isLoggedIn, setUsername, setIsLoggedIn}) => {
   return (
     <div className="home-container">
       <PageLanding />
       <div className="min-h-screen">
         <PageWhatWeDo />
-        <WelcomePage />
+        <WelcomePage setUsername={setUsername} setIsLoggedIn={setIsLoggedIn} isLoggedIn={isLoggedIn}/>
       </div>
     </div>
   )
 }
 
-const UserLoggedInPage = () => {
+const UserLoggedInPage = ({username}) => {
   return (
     <>
-      Hello nobody
+      Hello {username}
     </>
   )
 }
@@ -28,19 +28,22 @@ const UserLoggedInPage = () => {
 export default function Home() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [username, setUsername] = useState('');
+  const [user, setUser] = useState(null);
+  console.log("🚀 ~ Home ~ user:", user)
 
-
-  // Fetch login status client-side
   useEffect(() => {
     const fetchLoginStatus = async () => {
       await checkLoginStatus({ setIsLoggedIn, setUsername });
+      const userData = await getUserV2();
+      setUser(userData);
+     
     };
     fetchLoginStatus();
-  }, []);
+  }, [username]);
 
   if (!isLoggedIn) {
-    return <UserNotLoggedInPage />;
+    return <UserNotLoggedInPage setIsLoggedIn={setIsLoggedIn} isLoggedIn={isLoggedIn} setUsername={setUsername}/>;
   }
 
-  return <UserLoggedInPage />;
+  return <UserLoggedInPage username={username}/>;
 }

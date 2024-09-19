@@ -6,7 +6,6 @@ import { useRouter } from 'next/navigation';
 
 const UserLogForm = ({ setIsLoggedIn, setUsername }) => {
     const router = useRouter();
-    const routerRedirect = () => router.push('/');
 
     const handleBtn = async (event, action) => {
         const username = event.target.form.username.value;
@@ -37,7 +36,7 @@ const UserLogForm = ({ setIsLoggedIn, setUsername }) => {
             event.target.form.reset();
             setIsLoggedIn(true);
             setUsername(username);
-            // routerRedirect();
+            router.refresh();
         } catch (error) {
             console.log('error:', error);
             toast.error(`Error: ${error.message}`);
@@ -148,10 +147,9 @@ const LoginStatus = ({ setUsername, setIsLoggedIn, isLoggedIn, username }) => {
 };
 
 
-const WelcomePage = () => {
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
-    const [username, setUsername] = useState('');
+const WelcomePage = ({isLoggedIn, setIsLoggedIn, setUsername}) => {
 
+    const username = 'billy';
     const WelcomeMsg = () => (
             <h2 className="mt-5 opacity-50">
                 Ready to get started?

@@ -74,6 +74,10 @@ export const validateAuth = async () => {
         const response = await fetch(destination, {
             method: 'GET',
             credentials: 'include',
+            // headers: {
+            //     'Cache-Control': 'no-cache',
+            //     'Pragma': 'no-cache',
+            // },
             headers: {
                 'Cache-Control': 'no-cache',
                 'Pragma': 'no-cache',
