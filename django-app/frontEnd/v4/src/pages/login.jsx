@@ -2,10 +2,8 @@
 import React, { useEffect, useState, Suspense } from 'react';
 import { toast, Toaster } from 'sonner';
 import { checkLoginStatus, handleLogOut } from '@/lib/apiUser';
-import { useRouter } from 'next/navigation';
 
 const UserLogForm = ({ setUser }) => {
-    const router = useRouter();
 
     const handleBtn = async (event, action) => {
         const username = event.target.form.username.value;
@@ -32,11 +30,9 @@ const UserLogForm = ({ setUser }) => {
             }
 
             const data = await response.json();
-            toast.success(`Successu: ${data.message}`);
+            toast.success(`Success: ${data.message}`);
             event.target.form.reset();
-            setUser(data.user) 
-            router.refresh();
-            //not rekloading
+            setUser(data.user)
 
         } catch (error) {
             console.log('error:', error);
@@ -87,19 +83,21 @@ const UserLogForm = ({ setUser }) => {
     )
 }
 
-const UserHelloForm = ({setUser, user}) => {
+export const UserHelloForm = ({setUser, user}) => {
     const buttonsLoggedInLinks = [
         {
             header: "Sign Out",
             className: "bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded",
-            onClick: () => handleLogOut({ setUsername, setIsLoggedIn }) //**setUset to null....
+            onClick: () => handleLogOut({ setUser }) //**setUset to null....
         }
     ];
 
     return (
         <div className='text-white text-center'>
-            <div>
-                Hello {user.username}
+            <div className='border rounded p-2'>
+                Hello {user.username} | {
+                    user.is_staff ? 'Subscribed' : 'Not-Subscriber'
+                }
             </div>
             <div className='flex flex-col gap-2 py-2'>
                 {buttonsLoggedInLinks.map((button, index) => (

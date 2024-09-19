@@ -1,49 +1,57 @@
 'use client'
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import WelcomePage from "@/src/pages/login";
 import { getUserV2 } from "@/lib/apiUser";
-import {PageLanding, PageWhatWeDo} from "@/src/pages/landing";
-import {SponsorPage} from "@/src/pages/sponsor";
+import { PageLanding, PageWhatWeDo } from "@/src/pages/landing";
+import { SponsorPage } from "@/src/pages/sponsor";
+import { SubscribeButton } from "@/components/buttons";
+import { UserHelloForm } from '@/src/pages/login'
 
 import { User } from "@/types/backend";
-const UserNotLoggedInPage = ({setUser, user}) => {
+
+
+const UserNotLoggedInPage = ({ setUser, user }) => {
   return (
     <div className="home-container">
       <PageLanding />
       <div className="min-h-screen">
         <PageWhatWeDo />
         <WelcomePage setUser={setUser} user={user} />
-        <SponsorPage/>
+        <SponsorPage />
       </div>
     </div>
   )
 }
 
-const UserLoggedInPage = ({username}) => {
+const UserLoggedInPage = ({ user, setUser }) => {
   return (
-    <>
-      Hello {username}
-    </>
+    <div className="flex flex-col gap-5 p-6">
+      <pre>{JSON.stringify(user, null, 2)}</pre>
+      <div style={{ width: '450px' }}>
+        {!user.is_staff &&
+          <SubscribeButton setUser={setUser} />
+        }
+        <UserHelloForm user={user} setUser={setUser} />
+      </div>
+    </div>
   )
 }
 
 
 export default function Home() {
   const [user, setUser] = useState<User | null>(null);
-  // console.log("🚀 ~ Home ~ user:", user)
-
   useEffect(() => {
     const fetchLoginStatus = async () => {
       const userData = await getUserV2();
       setUser(userData);
-     
+
     };
     fetchLoginStatus();
-  }, [user]);
+  }, [setUser]);
 
   if (!user) {
     return <UserNotLoggedInPage setUser={setUser} user={user} />;
   }
 
-  return <UserLoggedInPage username={user.username}/>;
+  return <UserLoggedInPage user={user} setUser={setUser} />;
 }

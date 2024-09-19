@@ -1,4 +1,5 @@
 'use client'
+import { postSubscribe } from '../lib/apiActions';
 import '../src/css/globals.css'
 import { useRouter } from 'next/navigation'
 
@@ -29,3 +30,25 @@ export const PageSignUp = () => {
         </div>
     )
 }
+
+
+export const SubscribeButton = ({setUser}) => {
+
+    const handleClick = async () => {
+        const res = await postSubscribe();
+        if (res.error) {
+            console.error('Error:', res.error);
+            return;
+        }
+        setUser(prevUser => ({ ...prevUser, is_staff: true }));
+    }
+
+    return (
+        <button className="px-5 py-3 text-white bg-blue-500 rounded-lg hover:bg-blue-600 w-full my-2"
+            onClick={handleClick}
+        >
+            Subscribe
+        </button>
+    )
+}
+

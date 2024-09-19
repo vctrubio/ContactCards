@@ -33,7 +33,9 @@ def user_by_username(request, username):
     
 @api_view(['POST', 'GET'])
 def subscribe_user(request):
-    
+    print('django.....callling....alll.....babies')
+    # return Response({"status": True}, status=status.HTTP_200_OK)
+ 
     def process_of_subscribing(user):
         user.is_staff = True
         user.save()

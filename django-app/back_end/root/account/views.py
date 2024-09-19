@@ -140,6 +140,7 @@ def register(request):
                     "message": "User created!",
                     "token": str(refresh.access_token),
                     "refresh": str(refresh),
+                    "user": UserSerializer(user).data,
                 },
                 status=201,
             )

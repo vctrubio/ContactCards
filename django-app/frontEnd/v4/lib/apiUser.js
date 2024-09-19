@@ -12,7 +12,7 @@ export const getCSRFToken = () => {
     return null;
 };
 
-export const handleLogOut = async ({ setUsername, setIsLoggedIn }) => {
+export const handleLogOut = async ({ setUser }) => {
     try {
         const csrfToken = getCSRFToken();
         const response = await fetch(`${process.env.NEXT_PUBLIC_BACK_END_URL_AUTH}logout/`, {
@@ -26,8 +26,7 @@ export const handleLogOut = async ({ setUsername, setIsLoggedIn }) => {
 
         if (response.ok) {
             toast.success('Logged out successfully');
-            setIsLoggedIn(false);
-            setUsername('');
+            setUser(null);
         } else {
             throw new Error('Logout failed');
         }
