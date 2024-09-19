@@ -1,0 +1,163 @@
+.iterm {
+    --size: 18px;
+    /* Define a custom 18 */
+    --bg-title: #ece3e3;
+    --bg-content: #9c9898;
+    --color-search-bar: #9c9898;
+    --size-min: 500;
+    font-size: var(--size);
+
+    width: 520px;
+    height: 250px;
+    margin: var(--size);
+
+    border: 1px solid #807474;
+    border-radius: var(--size);
+
+    padding: calc(var(--size) * 1);
+    /* This will set padding to 18px */
+
+    .container-twoes {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        gap: 20px;
+        overflow: hidden;
+
+        >* {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+
+            flex-grow: 1;
+            height: 100%;
+            width: 100%;
+
+        }
+
+    }
+
+    .tv-on {
+        border-radius: 12px;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 18px;
+        font-weight: bold;
+        letter-spacing: 1px;
+        border-bottom: 1px solid white;
+
+        >:last-child {
+            white-space: normal;
+            overflow: visible !important;
+            /* Allow text to wrap */
+            text-align: center;
+            /* Center the text */
+            padding: 10px;
+            /* Optional: Add padding for better readability */
+        }
+    }
+
+    .tv {
+        --border-out: #c08787;
+        --display-bg: #575454;
+
+        display: flex;
+        flex-direction: column;
+        border-radius: calc(var(--size) * 1);
+        padding: calc(var(--size) * 0.4);
+        border: calc(var(--size) * 0.2) solid var(--border-out);
+        background-color: white;
+        overflow: hidden;
+        box-shadow: inset 0 0 10px rgba(0, 128, 0, 0.6);
+
+        background-color: rgb(88, 88, 83);
+        opacity: 0.8;
+        min-width: var(--size-min);
+
+        >* {
+            padding: 4px 8px;
+        }
+
+        >*:first-child {
+            /* search-icon-bar */
+            color: var(--color-search-bar);
+            display: flex;
+            font-size: calc(var(--size) * 1.8);
+
+            border: 1px solid black;
+            background-color: var(--display-bg);
+            border-radius: calc(var(--size) * 0.8);
+
+            /* Background color for content area */
+            >*:first-child {
+                /* border: 1px solid black; */
+                margin-right: 12px;
+                min-width: 24px;
+            }
+        }
+
+        #search-result {
+            font-size: 25px;
+            color: rgb(12, 2, 2);
+        }
+
+    }
+
+
+
+    .tv-controller {
+        >* {
+            flex-direction: column;
+        }
+    }
+
+    .title {
+        font-weight: bold;
+        color: var(--bg-title);
+        font-size: calc(var(--size) * 2.2);
+    }
+
+    .content {
+        display: flex;
+        color: var(--bg-content);
+        font-size: calc(var(--size) * 1.2);
+    }
+
+    .caplog {
+        font-size: 32px;
+        min-width: 24px;
+        background-color: rgb(23, 38, 22);
+        padding: 0 4px;
+        overflow: hidden;
+        border-radius: calc(var(--size) * 0.6);
+        /* display: flex; */
+
+        input {
+            background-color: transparent;
+            width: inherit;
+            width: 24px;
+            padding-left: 6px;
+
+            &:focus {
+                outline: red;
+            }
+        }
+    }
+
+    .last {
+        position: relative;
+        top: 0;
+        right: 0;
+        width: auto;
+        justify-content: end;
+        align-items: center;
+        gap: 10px;
+    }
+
+}
+
+@media (max-width: 600px) {}
