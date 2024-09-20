@@ -7,6 +7,7 @@ import "../css/globals.css";
 import "../css/banners.css";
 import "../css/cards.css";
 import "../css/models.css";
+import "../css/dashboard.css";
 
 export const metadata: Metadata = {
   title: "Contact Card",

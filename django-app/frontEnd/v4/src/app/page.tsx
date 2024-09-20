@@ -9,6 +9,7 @@ import { UserHelloForm } from '@/src/pages/login'
 
 import { User } from "@/types/backend";
 import { UserModels } from "@/components/models";
+import Link from "next/link";
 
 const UserNotLoggedInPage = ({ setUser, user }) => {
   return (
@@ -26,13 +27,17 @@ const UserNotLoggedInPage = ({ setUser, user }) => {
 const UserLoggedInPage = ({ user, setUser }) => {
   return (
     <div className="flex flex-col gap-5 p-6">
+
       <div style={{ width: '450px' }}>
-        {!user.is_staff &&
-          <SubscribeButton setUser={setUser} />
+        {!user.is_staff ?
+          <SubscribeButton setUser={setUser} /> :
+          <Link href="/dashboard" className="bg-green-500 ">
+            Go TO DASHBoard
+          </Link>
         }
         <UserHelloForm user={user} setUser={setUser} />
       </div>
-        <UserModels user={user} />
+      <UserModels user={user} />
       <pre>{JSON.stringify(user, null, 2)}</pre>
     </div>
   )
