@@ -2,6 +2,7 @@ import { fetchAllOrganisation } from "../../../lib/apiOrganisation";
 import { Organisation } from "@/types/backend";
 import { CardOrganisation } from "@/components/cards";
 import { ListOrganisations } from "../home/page";
+
 const OrganisationsPage = async () => {
     const organisations: Organisation[] = await fetchAllOrganisation();
 

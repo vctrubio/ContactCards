@@ -7,20 +7,19 @@ import { useUser } from '@/types/hooks';
 import Button from '@mui/material/Button';
 
 
-const LoggedInComponents = ({user, setUser}) => {
-
+const LoggedInComponents = ({ user, setUser }) => {
     return (
         <>
-        <Button
-            variant=''
-            color='secondary'
+            <Button
+                variant=''
+                color='secondary'
             >
                 {user.username}
             </Button>
             <Button
                 variant="contained"
                 color="primary"
-                onClick={handleLogOut(setUser)}
+                onClick={() => handleLogOut(setUser)}
             >
                 Log Out
             </Button>
@@ -29,14 +28,23 @@ const LoggedInComponents = ({user, setUser}) => {
 }
 
 const LoggedOutComponents = () => {
-    return (<>
-         <Button
-            variant=''
+
+    const scrollToLoginForm = () => {
+        const loginFormElement = document.getElementById('login-form');
+        if (loginFormElement) {
+            loginFormElement.scrollIntoView({ behavior: 'auto' });
+        }
+    };
+
+    return (
+        <Button
+            variant='outline' // You can change this to "text" or "outlined"
             color='secondary'
-            >
-                Please log in
-            </Button> 
-    </>)
+            onClick={scrollToLoginForm}
+        >
+            Please log in
+        </Button>
+    )
 }
 
 
@@ -45,7 +53,7 @@ const NavBarUserFace = ({ user, setUser }) => {
     return (
         <Link href='/'>
             <div className=''>
-                {user ? <LoggedInComponents user={user} setUser={setUser}/> : <LoggedOutComponents />}
+                {user ? <LoggedInComponents user={user} setUser={setUser} /> : <LoggedOutComponents />}
             </div>
         </Link>
     )
@@ -76,12 +84,3 @@ export const NavBar = () => {
         </>
     );
 }
-
-
-/*
-ISSUES FOUND:
-- navbar is making request on everypage load -> it is in the main layout...
-- if user is not logged in, making irrelevant requests
-
-
-*/

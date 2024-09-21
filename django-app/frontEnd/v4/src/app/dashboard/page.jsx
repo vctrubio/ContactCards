@@ -1,7 +1,7 @@
 'use client'
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";  // Use for identifying the current path
+import { usePathname } from "next/navigation";
 
 
 const path = '/dashboard';

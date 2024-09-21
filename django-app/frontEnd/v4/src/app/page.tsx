@@ -1,5 +1,6 @@
 'use client'
-import React, { useState, useEffect } from "react";
+
+import React from "react";
 import WelcomePage from "@/src/pages/login";
 import { getUserV2 } from "@/lib/apiUser";
 import { PageLanding, PageWhatWeDo } from "@/src/pages/landing";
@@ -8,7 +9,6 @@ import { SubscribeButton } from "@/components/buttons";
 import { UserHelloForm } from '@/src/pages/login'
 import { useUser } from "@/types/hooks";
 
-import { User } from "@/types/backend";
 import { UserModels } from "@/components/models";
 import Link from "next/link";
 
@@ -44,12 +44,9 @@ const UserLoggedInPage = ({ user, setUser }) => {
   )
 }
 
-
-
-
 export default function Home() {
-  const {user, setUser} = useUser();
-  
+  const { user, setUser } = useUser();
+
   if (!user) {
     return <UserNotLoggedInPage setUser={setUser} user={user} />;
   }

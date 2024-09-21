@@ -55,7 +55,7 @@ const UserLogForm = ({ setUser }) => {
 
     const SignInSignUpForm = () => {
         return (
-            <form className="flex flex-col gap-2 mt-10 text-black w-64 mx-auto" onKeyDown={handleKeyDown}>
+            <form className="flex flex-col gap-2 mt-10 text-black w-64 mx-auto" onKeyDown={handleKeyDown} id='login-form'>
                 <input type="text" placeholder="Username" name='username' className='rounded p-2' />
                 <input type="password" placeholder="Password" name='password' className='rounded p-2' />
                 <div className="flex justify-center gap-8">
