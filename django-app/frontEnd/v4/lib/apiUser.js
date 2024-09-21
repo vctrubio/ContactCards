@@ -96,6 +96,7 @@ export const validateAuth = async () => {
 }
 
 export const getUser = async () => {
+    console.log('calling getUser.-.')
     try {
         const url = `${process.env.NEXT_PUBLIC_BACK_END_URL_AUTH}user/`;
         const response = await fetch(url,

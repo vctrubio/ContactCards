@@ -6,6 +6,7 @@ import { PageLanding, PageWhatWeDo } from "@/src/pages/landing";
 import { SponsorPage } from "@/src/pages/sponsor";
 import { SubscribeButton } from "@/components/buttons";
 import { UserHelloForm } from '@/src/pages/login'
+import { useUser } from "@/types/hooks";
 
 import { User } from "@/types/backend";
 import { UserModels } from "@/components/models";
@@ -47,16 +48,8 @@ const UserLoggedInPage = ({ user, setUser }) => {
 
 
 export default function Home() {
-  const [user, setUser] = useState<User | null>(null);
-  useEffect(() => {
-    const fetchLoginStatus = async () => {
-      const userData = await getUserV2();
-      setUser(userData);
-
-    };
-    fetchLoginStatus();
-  }, [setUser]);
-
+  const {user, setUser} = useUser();
+  
   if (!user) {
     return <UserNotLoggedInPage setUser={setUser} user={user} />;
   }

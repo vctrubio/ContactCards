@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { cookies, headers } from 'next/headers';
-import {NavBar} from "@/components/navbar";
+import { NavBar } from "@/components/navbar";
+import { UserProvider } from "@/types/hooks";
 
 import "../css/globals.css";
 import "../css/banners.css";
@@ -25,8 +26,10 @@ export default function RootLayout({ children, }:
   return (
     <html lang="en">
       <body className="root-container">
-        <NavBar />
-        {children}
+        <UserProvider>
+          <NavBar />
+          {children}
+        </UserProvider>
       </body>
     </html>
   );

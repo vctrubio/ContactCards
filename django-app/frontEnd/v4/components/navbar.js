@@ -6,6 +6,7 @@ import { usePathname, useRouter } from 'next/navigation'
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
 
 import Link from 'next/link';
+import { useUser } from '@/types/hooks';
 
 const NavBarRight = ({ user, router }) => {
 
@@ -116,79 +117,23 @@ const NavBarRight = ({ user, router }) => {
     );
 }
 
-const UserDropDown = ({ title }) => {
-    const menuList = [
-        { label: 'ProfilePage', href: '/user' },
-        { label: 'OrganisationPage', href: '/organisations' },
-        { label: 'LoginPage', href: '/login' },
-    ];
-
-    return (
-        <Menu>
-            <MenuButton className="border p-2 rounded-xl">{title}</MenuButton>
-            <MenuItems anchor="left">
-                {menuList.map((item, idx) => (
-                    <MenuItem key={idx}>
-                        {() => (
-                            <Link href={item.href} passHref>
-                                <div className={`block px-4 py-1 text-sm`}>
-                                    {item.label}
-                                </div>
-                            </Link>
-                        )}
-                    </MenuItem>
-                ))}
-            </MenuItems>
-        </Menu>
-    );
-}
-
 const NavBarUserFace = ({ user }) => {
 
     return (
         <Link href='/'>
             <div className='border p-4 '>
-                {user ? user : 'Anonymous'}
+                {user ? user.username : 'Anonymous'}
             </div>
         </Link>
     )
-
-    return (
-        <div className='flex items-center'>
-            {user ? (
-                <div className='flex items-center space-x-4'>
-                    <UserDropDown title={user} />
-                </div>
-            ) : (
-                <div className='underline'>Anonymous</div>
-            )}
-        </div>
-    );
 }
 
 
 export const NavBar = () => {
-    const [user, setUser] = useState(null);
+    const {user} = useUser();
+
     const router = useRouter();
     const i = usePathname().split('/')[1]
-    // console.log("🚀 ~ NavBar ~ i:", i)
-
-
-    useEffect(() => {
-        const fetchUser = async () => {
-            try {
-                const data = await getUser();
-                if (data)
-                    setUser(data.username);
-                // console.log('UserNavBar:', data);
-            } catch (error) {
-                console.error('Errorito fetching user:', error);
-            }
-        };
-
-        fetchUser();
-    }, []);
-
 
     return (
         <>
