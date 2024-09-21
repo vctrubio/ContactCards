@@ -19,7 +19,7 @@ const LoggedInComponents = ({ user, setUser }) => {
             <Button
                 variant="contained"
                 color="primary"
-                onClick={() => handleLogOut(setUser)}
+                onClick={() => handleLogOut({setUser})}
             >
                 Log Out
             </Button>

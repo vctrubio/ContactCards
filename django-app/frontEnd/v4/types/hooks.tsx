@@ -32,7 +32,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
         };
 
         fetchUser();
-    }, [user]);
+    }, [setUser]);
 
     return (
         <UserContext.Provider value={{ user, setUser, isLoading, error }}>
