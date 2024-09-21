@@ -4,6 +4,7 @@ export interface Organisation {
     about: string;
     www: string;
     location: string;
+    cards: Card[];
 }
 
 export interface User {
@@ -18,6 +19,7 @@ export interface Card {
     id: number;
     organisation: Organisation;
     employee: string,
+    status: string;
 }
 
 export interface Wallet {

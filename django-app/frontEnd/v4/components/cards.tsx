@@ -6,6 +6,7 @@ import { FaShareAlt, FaTrash, FaSave } from 'react-icons/fa';
 import Image from "next/image";
 import Link from 'next/link';
 import { checkCardShare } from '@/lib/conditions';
+import { TextField, Button } from '@mui/material';
 
 function camelCaseToSpaces(str: string): string {
     return str.replace(/([a-z])([A-Z])/g, '$1 $2');
@@ -156,7 +157,7 @@ export const ItermWallet = ({ organisation = 'Organisation', name = 'NoName', de
                             < FaShareAlt size={24} className="text-inherit" />
                         }
                     </div>
-                     {/* <div>
+                    {/* <div>
                         <FaTrash size={24} color="white" />
                     </div> */}
                     {/* <div>
@@ -170,13 +171,156 @@ export const ItermWallet = ({ organisation = 'Organisation', name = 'NoName', de
 }
 
 export const CardOrganisation = ({ organisation }: { organisation: Organisation }) => {
+    const [isEditing, setIsEditing] = useState(false);
+    const [editedOrg, setEditedOrg] = useState<Organisation>(organisation);
+    const [cards, setCards] = useState(organisation.cards || []);
+
+    const toggleEdit = () => {
+        setIsEditing(!isEditing);
+    };
+
+    const handleOrgInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = e.target;
+        setEditedOrg((prev) => ({
+            ...prev,
+            [name]: value,
+        }));
+    };
+
+    const handleCardInputChange = (id: number, field: string, value: string) => {
+        setCards((prevCards) =>
+            prevCards.map((card) =>
+                card.id === id
+                    ? {
+                          ...card,
+                          [field]: value,
+                      }
+                    : card
+            )
+        );
+    };
+
+    const handleSaveChanges = () => {
+        // Handle saving organisation and card changes
+        console.log('Saving Organisation:', editedOrg);
+        console.log('Saving Cards:', cards);
+        setIsEditing(false);
+    };
+
+    const handleDeleteCard = (id: number) => {
+        // Handle deleting a card
+        console.log(`Delete card with ID: ${id}`);
+        setCards((prevCards) => prevCards.filter((card) => card.id !== id));
+    };
+
+    const handleDeleteOrganisation = () => {
+        // Handle deleting the organisation
+        console.log(`Delete organisation with ID: ${organisation.id}`);
+        // Make an API call here to delete the organisation and handle the result
+    };
+
     return (
-        <div className="card organisation">
-            {organisation.id} | {organisation.name}
+        <div className="p-6 max-w-sm mx-auto bg-white rounded-xl shadow-md space-y-4 hover:shadow-lg transition-shadow">
+            {isEditing ? (
+                <>
+                    <TextField
+                        label="Name"
+                        name="name"
+                        value={editedOrg.name}
+                        onChange={handleOrgInputChange}
+                        fullWidth
+                    />
+                    <TextField
+                        label="About"
+                        name="about"
+                        value={editedOrg.about}
+                        onChange={handleOrgInputChange}
+                        fullWidth
+                        multiline
+                    />
+                    <TextField
+                        label="Website"
+                        name="www"
+                        value={editedOrg.www}
+                        onChange={handleOrgInputChange}
+                        fullWidth
+                    />
+                    <TextField
+                        label="Location"
+                        name="location"
+                        value={editedOrg.location}
+                        onChange={handleOrgInputChange}
+                        fullWidth
+                    />
+                </>
+            ) : (
+                <>
+                    <h2 className="text-2xl font-bold text-gray-900">{organisation.name}</h2>
+                    <p className="text-gray-700">{organisation.about}</p>
+                    <p className='text-gray-700'>{organisation.www}</p>
+                    <p className="text-gray-600">📍{organisation.location}</p>
+                </>
+            )}
+
+            {/* Display Employee Cards */}
+            <div className="mt-4">
+                <h3 className="text-xl font-bold text-black">Employees</h3>
+                {cards.map((card) => (
+                    <div key={card.id} className="mb-4 p-4 bg-gray-100 rounded-lg">
+                        {isEditing ? (
+                            <>
+                                <TextField
+                                    label="Employee"
+                                    name="employee"
+                                    value={card.employee}
+                                    onChange={(e) => handleCardInputChange(card.id, 'employee', e.target.value)}
+                                    fullWidth
+                                />
+                                <TextField
+                                    label="Status"
+                                    name="status"
+                                    value={card.status || ''}
+                                    onChange={(e) => handleCardInputChange(card.id, 'status', e.target.value)}
+                                    fullWidth
+                                />
+                                <Button
+                                    variant="contained"
+                                    color="secondary"
+                                    onClick={() => handleDeleteCard(card.id)}
+                                    className="mt-2"
+                                >
+                                    Delete Card
+                                </Button>
+                            </>
+                        ) : (
+                            <>
+                                <p className="text-gray-700">Employee: {card.employee}</p>
+                                <p className="text-gray-700">Status: {card.status || 'No status'}</p>
+                            </>
+                        )}
+                    </div>
+                ))}
+            </div>
+
+            {/* Action Buttons */}
+            <div className="">
+                {isEditing ? (
+                    <Button variant="contained" color="primary" onClick={handleSaveChanges}>
+                        Save Changes
+                    </Button>
+                ) : (
+                    <Button variant="outlined" color="primary" onClick={toggleEdit}>
+                        Edit
+                    </Button>
+                )}
+
+                <Button variant="contained" color="error" onClick={handleDeleteOrganisation}>
+                    Delete Organisation
+                </Button>
+            </div>
         </div>
     );
-}
-
+};
 
 export const CardOrganisationEmployee = ({ organisation }: { organisation: Organisation }) => {
     return (
