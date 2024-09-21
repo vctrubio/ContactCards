@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 class Card(models.Model):
     id = models.AutoField(primary_key=True)
     organisation = models.ForeignKey(Organisation, on_delete=models.CASCADE)
-    employee = models.ForeignKey(User, on_delete=models.CASCADE)
+    employee = models.ForeignKey(User, on_delete=models.CASCADE, related_name='employee_cards')
     status = models.CharField(max_length=50, null=True)
     
     # def get_card_shares(self):

@@ -20,7 +20,8 @@ class NestedOrganisationSerializer(serializers.ModelSerializer):
         model = Organisation
         fields = [
             'id',
-            'name'
+            'name',
+            'pp'
         ]
 
 
