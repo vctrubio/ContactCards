@@ -13,7 +13,6 @@ interface UserContextProps {
 
 const UserContext = createContext<UserContextProps | undefined>(undefined);
 
-// Provider component
 export const UserProvider = ({ children }: { children: ReactNode }) => {
     const [user, setUser] = useState<User | null>(null);
     const [isLoading, setIsLoading] = useState<boolean>(true);

@@ -31,7 +31,6 @@ export const PageSignUp = () => {
     )
 }
 
-
 export const SubscribeButton = ({setUser}) => {
 
     const handleClick = async () => {
