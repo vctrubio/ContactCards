@@ -1,5 +1,4 @@
-'use client'
-
+import React from "react";
 interface TestProps {
     dataSet: any;
     title: string;
@@ -7,7 +6,8 @@ interface TestProps {
     icon: string;
 }
 
-const Test: React.FC<TestProps> = ({ dataSet, title, desc, icon }) => {
+
+const SearchBar: React.FC<TestProps> = ({ dataSet, title, desc, icon }) => {
 
     return (
         <div className="flex justify-center">
@@ -36,4 +36,5 @@ const Test: React.FC<TestProps> = ({ dataSet, title, desc, icon }) => {
     )
 }
 
-export default Test;
+
+export default SearchBar;

@@ -10,15 +10,10 @@ import Button from '@mui/material/Button';
 const LoggedInComponents = ({ user, setUser }) => {
     return (
         <>
-            <Button
-                variant=''
-                color='secondary'
-            >
-                {user.username}
-            </Button>
+      
             <Button
                 variant="contained"
-                color="primary"
+                color="secondary"
                 onClick={() => handleLogOut({setUser})}
             >
                 Log Out
@@ -72,7 +67,7 @@ export const NavBar = () => {
                 <h2 className="opacity-50 border p-2 rounded-2xl hover:bg-blue-200 cursor-pointer"
                     onClick={() => router.push('/home')}
                 >
-                    Token
+                    Home
                 </h2>
                 <Link href={`/${i}`}>
                     <div className='text-2xl opacity-80 hover:opacity-100 tracking-wide align-center cursor-pointer'>

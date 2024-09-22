@@ -14,6 +14,7 @@ export interface User {
     wallet: Wallet;
     employee_organisations: Organisation[];
     is_admin: boolean;
+    is_staff: boolean;
 }
 
 export interface Card {

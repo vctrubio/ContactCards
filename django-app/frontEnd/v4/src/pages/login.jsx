@@ -2,6 +2,7 @@
 import React, { useEffect, useState, Suspense } from 'react';
 import { toast, Toaster } from 'sonner';
 import { checkLoginStatus, handleLogOut } from '@/lib/apiUser';
+import { SubscribeButton } from '@/components/buttons';
 import Link from 'next/link';
 const UserLogForm = ({ setUser }) => {
 
