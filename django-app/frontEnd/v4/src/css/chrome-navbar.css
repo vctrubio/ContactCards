@@ -1,0 +1,44 @@
+.chrome-navbar{
+    --tmp-border: 1px solid #8EACCD;
+    --outline-color: #CDC2A5;
+    --padding: 8px;
+    --border-radius: 4px;
+    --nav-height: 55px;
+
+    display: flex; 
+    align-items: center;
+    position: relative;
+    /* min-width: 650px;
+    max-width: 900px; */
+    width: 620px !important;
+    
+
+    height: var(--nav-height);
+    
+    padding: var(--padding);
+    
+    border: var(--tmp-border);
+    border-radius: var(--border-radius);
+    
+    input{
+        flex-grow: 1;
+        height: 100%;
+        margin-left: 34px;
+        padding: 0 4px;
+        
+        background-color: transparent;
+        border-radius: 2px;
+        &:focus{
+            outline: none;
+            border-bottom: 1px solid var(--outline-color);
+        }
+    }
+
+    .icons-left{
+        position: absolute;
+        top: calc(var(--nav-height) / 4);
+        left: var(--padding);
+        color: red;
+    }
+    
+}

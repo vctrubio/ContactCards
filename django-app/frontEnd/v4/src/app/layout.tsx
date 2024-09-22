@@ -9,6 +9,7 @@ import "../css/banners.css";
 import "../css/cards.css";
 import "../css/models.css";
 import "../css/dashboard.css";
+import "../css/chrome-navbar.css"
 
 export const metadata: Metadata = {
   title: "Contact Card",
