@@ -2,7 +2,7 @@
 import React, { useEffect, useState, Suspense } from 'react';
 import { toast, Toaster } from 'sonner';
 import { checkLoginStatus, handleLogOut } from '@/lib/apiUser';
-
+import Link from 'next/link';
 const UserLogForm = ({ setUser }) => {
 
     const handleBtn = async (event, action) => {
@@ -83,7 +83,7 @@ const UserLogForm = ({ setUser }) => {
     )
 }
 
-export const UserHelloForm = ({setUser, user}) => {
+export const UserHelloForm = ({ setUser, user }) => {
     const buttonsLoggedInLinks = [
         {
             header: "Sign Out",
@@ -110,26 +110,32 @@ export const UserHelloForm = ({setUser, user}) => {
                     </button>
                 ))}
             </div>
+            {!user.is_staff ?
+                <SubscribeButton setUser={setUser} /> :
+                <Link href="/dashboard" className="bg-green-500 px-9 py-2 mt-4">
+                    Go TO DASHBoard
+                </Link>
+            }
         </div>
     )
 }
 
 
-const LoginStatus = ({setUser, user}) => {
+const LoginStatus = ({ setUser, user }) => {
     if (user) {
-        return <UserHelloForm user={user} setUser={setUser}/>;
+        return <UserHelloForm user={user} setUser={setUser} />;
     } else {
         return <UserLogForm setUser={setUser} />;
     }
 };
 
 
-const WelcomePage = ({setUser, user}) => {
+const WelcomePage = ({ setUser, user }) => {
 
     const WelcomeMsg = () => (
-            <h2 className="mt-5 opacity-50">
-                Ready to get started?
-            </h2>
+        <h2 className="mt-5 opacity-50">
+            Ready to get started?
+        </h2>
     );
 
     return (

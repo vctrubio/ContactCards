@@ -30,12 +30,6 @@ const UserLoggedInPage = ({ user, setUser }) => {
     <div className="flex flex-col gap-5 p-6">
 
       <div style={{ width: '450px' }}>
-        {!user.is_staff ?
-          <SubscribeButton setUser={setUser} /> :
-          <Link href="/dashboard" className="bg-green-500 ">
-            Go TO DASHBoard
-          </Link>
-        }
         <UserHelloForm user={user} setUser={setUser} />
       </div>
       <UserModels user={user} />

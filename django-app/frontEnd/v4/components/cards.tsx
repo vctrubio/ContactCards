@@ -110,7 +110,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
     );
 };
 
-export const ItermWallet = ({ organisation = 'Organisation', name = 'NoName', descOne = 'email@gmail.com', descTwo = '652 432 112' }) => {
+export const ItermWallet = ({ organisation = 'Organisation', name = 'NoName', descOne = 'email@gmail.com', descTwo = '652 432 112', status='status' }) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const handleShareClick = () => {
@@ -170,7 +170,73 @@ export const ItermWallet = ({ organisation = 'Organisation', name = 'NoName', de
     );
 }
 
-export const CardOrganisation = ({ organisation }: { organisation: Organisation }) => {
+export const ContactCard = ({ card }: { card: Card }) => {
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const handleShareClick = () => {
+        setIsModalOpen(true);
+    };
+
+    const handleCloseModal = () => {
+        setIsModalOpen(false);
+    };
+
+    return (
+        <div className="iterm">
+            <div className="container-twoes">
+                {/* Organisation profile picture */}
+                <div className="tv-on">
+                    {card.organisation.pp ? (
+                        <Image
+                            src={card.organisation.pp}  // Displaying organisation's profile picture
+                            alt={`${card.organisation.name} Logo`}
+                            width={190}
+                            height={190}
+                        />
+                    ) : (
+                        <Image
+                            src="/icon.webp"  // Fallback to default icon if organisation.pp is missing
+                            alt="Default Icon"
+                            width={190}
+                            height={190}
+                        />
+                    )}
+                    <div className="orgy">{card.organisation.name}</div>
+                </div>
+
+                {/* Employee and Contact Details */}
+                <div className="tv-controller">
+                    <Link href={`/user/${card.employee}`}>
+                        <div className="title">{card.employee}</div>
+                    </Link>
+                    <div className="content">
+                        <div className="content-one">Status: {card.status || 'No status'}</div>
+                    </div>
+                </div>
+
+                {/* Action Buttons */}
+                <div className="last">
+                    <div className="text-white hover:text-blue-500" onClick={handleShareClick}>
+                        <FaShareAlt size={24} className="text-inherit" />
+                    </div>
+                    {/* Additional buttons like delete, save can go here */}
+                </div>
+            </div>
+
+            {/* Modal for sharing functionality */}
+            <Modal open={isModalOpen} onClose={handleCloseModal}>
+                {/* Modal content here */}
+                <div className="p-4 bg-white">
+                    <h2>Share Card</h2>
+                    <p>Share {card.employee}'s card from {card.organisation.name}.</p>
+                    <Button onClick={handleCloseModal}>Close</Button>
+                </div>
+            </Modal>
+        </div>
+    );
+};
+
+export const CardOrganisation = ({ organisation, showEdit }: { organisation: Organisation, showEdit: boolean }) => {
     const [isEditing, setIsEditing] = useState(false);
     const [editedOrg, setEditedOrg] = useState<Organisation>(organisation);
     const [cards, setCards] = useState(organisation.cards || []);
@@ -192,9 +258,9 @@ export const CardOrganisation = ({ organisation }: { organisation: Organisation 
             prevCards.map((card) =>
                 card.id === id
                     ? {
-                          ...card,
-                          [field]: value,
-                      }
+                        ...card,
+                        [field]: value,
+                    }
                     : card
             )
         );
@@ -220,7 +286,7 @@ export const CardOrganisation = ({ organisation }: { organisation: Organisation 
     };
 
     return (
-        <div className="p-6 max-w-sm mx-auto bg-white rounded-xl shadow-md space-y-4 hover:shadow-lg transition-shadow">
+        <div className="p-6 max-w-lg bg-white rounded-xl shadow-md space-y-4 hover:shadow-lg transition-shadow">
             {isEditing ? (
                 <>
                     <TextField
@@ -308,15 +374,16 @@ export const CardOrganisation = ({ organisation }: { organisation: Organisation 
                     <Button variant="contained" color="primary" onClick={handleSaveChanges}>
                         Save Changes
                     </Button>
-                ) : (
+                ) : (showEdit && (
                     <Button variant="outlined" color="primary" onClick={toggleEdit}>
                         Edit
+                    </Button>)
+                )}
+                {showEdit && (
+                    <Button variant="contained" color="error" onClick={handleDeleteOrganisation}>
+                        Delete Organisation
                     </Button>
                 )}
-
-                <Button variant="contained" color="error" onClick={handleDeleteOrganisation}>
-                    Delete Organisation
-                </Button>
             </div>
         </div>
     );

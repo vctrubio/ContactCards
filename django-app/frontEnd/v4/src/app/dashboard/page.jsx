@@ -8,7 +8,7 @@ const path = '/dashboard';
 const links = {
     "View": `${path}/view`,
     "Create": `${path}/create`,
-    // "Delete": `${path}/delete`
+    "Statistics": `${path}/stats`
 }
 
 

@@ -4,6 +4,7 @@ export interface Organisation {
     about: string;
     www: string;
     location: string;
+    pp: string; //profile picture url im guessing
     cards: Card[];
 }
 
